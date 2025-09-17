@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELLIE CENTER - Manual Operativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .slide {
+            width: 100vw;
+            min-height: 100vh;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: white;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .slide:nth-child(even) {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .slide-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .slide-subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .content-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.5em;
+        }
+
+        .actor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .actor-card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .actor-card:hover {
+            border-color: #667eea;
+            transform: scale(1.02);
+        }
+
+        .alert-type {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 6px solid;
+        }
+
+        .alert-manual {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .alert-auto {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .alert-vital {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .process-step {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+        }
+
+        .classification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .classification-card {
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            color: white;
+            font-weight: 500;
+        }
+
+        .evs-card {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        }
+
+        .evn-card {
+            background: linear-gradient(135deg, #26de81, #20bf6b);
+        }
+
+        .ef-card {
+            background: linear-gradient(135deg, #a55eea, #8854d0);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .whatsapp-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .whatsapp-option {
+            background: #25D366;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            margin: 5px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .logo-placeholder {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 120px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .special-note {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            .slide-title {
+                font-size: 1.8em;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- SLIDE 1: PORTADA -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">01/14</div>
+            <div class="slide-header">
+                <h1 class="slide-title">ELLIE CENTER</h1>
+                <p class="slide-subtitle">Manual Operativo - Atención y Gestión de Eventos</p>
+                <p style="color: #666; margin-top: 20px;">Actualizado: Marzo 2024</p>
+                <p style="color: #667eea; font-weight: bold; margin-top: 10px;">Sistema de Teleasistencia con Dispositivos Wearables</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: OBJETIVO Y ALCANCE -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">02/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">OBJETIVO Y ALCANCE</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">🎯 Objetivo Principal</h3>
+                    <p>Establecer el proceso de atención y gestión de eventos por parte del Ellie Center para brindar teleasistencia efectiva a los afiliados.</p>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-title">📋 Alcance del Servicio</h3>
+                    <ul style="margin-top: 15px; line-height: 1.8;">
+                        <li>Atención 24/7 de eventos de emergencia</li>
+                        <li>Respuesta ante alertas automáticas y manuales</li>
+                        <li>Coordinación con redes de ayuda y servicios médicos</li>
+                        <li>Seguimiento continuo hasta resolución del evento</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: CONSIDERACIONES GENERALES -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">03/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">CONSIDERACIONES GENERALES</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <ul style="line-height: 2; font-size: 1.1em;">
+                        <li>📊 Servicio para adultos mayores</li>
+                        <li>⚠️ 85% de casos de falsa alarma</li>
+                        <li>😊 Buena predisposición de afiliados</li>
+                        <li>🚫 No damos consejos médicos (solo acompañamos)</li>
+                        <li>🤝 Ofrecemos ayuda 2 veces en la llamada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: ACTORES PRINCIPALES -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">04/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">ACTORES PRINCIPALES</h2>
+            </div>
+            <div class="actor-grid">
+                <div class="actor-card">
+                    <div class="icon">🧓</div>
+                    <h3 style="color: #667eea; margin: 15px 0;">Afiliado/Cliente</h3>
+                    <p>Usuario final del servicio que porta el dispositivo wearable</p>
+                </div>
+                <div class="actor-card">
+                    <div class="icon">🎧</div>
+                    <h3 style="color: #667eea; margin: 15px 0;">Agente/OPER</h3>
+                    <p>Operador de asistencia online del Ellie Center</p>
+                </div>
+                <div class="actor-card">
+                    <div class="icon">👨‍👩‍👧‍👦</div>
+                    <h3 style="color: #667eea; margin: 15px 0;">AP (Acompañante Principal)</h3>
+                    <p>Contacto primario cuando el afiliado no responde</p>
+                </div>
+                <div class="actor-card">
+                    <div class="icon">🤝</div>
+                    <h3 style="color: #667eea; margin: 15px 0;">Red de Ayuda</h3>
+                    <p>Familiares, cuidadores, enfermeros, vecinos (hasta 5 contactos)</p>
+                </div>
+                <div class="actor-card">
+                    <div class="icon">🏥</div>
+                    <h3 style="color: #667eea; margin: 15px 0;">Cobertura de Salud</h3>
+                    <p>Obra social/medicina prepaga/seguro médico</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: TIPOS DE ALERTAS -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">05/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">TIPOS DE ALERTAS</h2>
+            </div>
+            <div class="content-grid">
+                <div class="alert-type alert-manual">
+                    <h3>📱 1. Botón de Ayuda</h3>
+                    <p><strong>Activación manual por parte del afiliado</strong><br>
+                    Desde smartwatch o smartphone<br>
+                    Atención: 24/7 con protocolo completo</p>
+                </div>
+                <div class="alert-type alert-auto">
+                    <h3>🤸‍♂️ 2. Detección de Posible Caída</h3>
+                    <p><strong>Activación automática mediante sensores</strong><br>
+                    Horario nocturno (22:00-8:00): Solo estas se atienden<br>
+                    Filtro de 120 minutos para eventos repetidos</p>
+                </div>
+                <div class="alert-type alert-vital">
+                    <h3>❤️ 3. Signos Vitales</h3>
+                    <p><strong>Parámetros biomédicos fuera de rango</strong><br>
+                    Estado: Actualmente no operativo</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: PROCESO DE RECEPCIÓN -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">06/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">PROCESO DE RECEPCIÓN</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">🖥️ Interfaz del Operador</h3>
+                    <p><strong>Zona Izquierda:</strong> Central de llamadas</p>
+                    <p><strong>Zona Derecha:</strong> Información del caso con 3 solapas:</p>
+                    <ul style="margin-top: 10px; line-height: 1.6;">
+                        <li>Perfil del Cliente: Datos del afiliado, Red de Ayuda, historial</li>
+                        <li>Casos: Listado filtrable de casos</li>
+                        <li>Pedido de Ayuda/Detección: Evento actual, geolocalización, comentarios</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-title">✅ Condiciones para Recibir Eventos</h3>
+                    <ul style="line-height: 1.6;">
+                        <li>Agente debe estar en estado "Disponible"</li>
+                        <li>No tener otros contactos abiertos</li>
+                        <li>Cerrar contacto anterior para recibir nuevo evento</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>Creación de Caso en Plataforma:</h4>
+                <p><strong>📱 Creación Automática:</strong> Si el número está en la base de datos del afiliado.</p>
+                <p><strong>📝 Creación Manual:</strong> Si el número no está registrado. El agente debe confirmar que es familiar o miembro de la Red de Ayuda antes de generar el caso manualmente.</p>
+                <p><strong>¿Cómo se crea manual?:</strong> sección "customer profile" > hacer click en "+ Caso de Connect (abajo a la derecha)" > se debe titular el caso y > y "guardar".</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: PROTOCOLO DE CONTACTO -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">07/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">PROTOCOLO DE CONTACTO <br>AFILIADO VALIDA EN BASE</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">🎯 Contacto con Afiliado</h3>
+                    <p><strong>Intentos:</strong> 6 llamadas totales</p>
+                    <ul style="margin-top: 10px; line-height: 1.6;">
+                        <li>2 llamadas a celular</li>
+                        <li>2 llamadas a smartwatch</li>
+                        <li>2 llamadas a teléfono fijo</li>
+                    </ul>
+                    <p><strong>Intervalo:</strong> 1 minuto entre llamadas</p>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-title">👥 Si no responde el afiliado</h3>
+                    <p><strong>Red de Ayuda:</strong> Hasta 5 miembros</p>
+                    <p>2 llamadas a cada miembro</p>
+                    <p>Intervalo de 2 minutos</p>
+                    <p>WhatsApp automático según resultado</p>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-title">⏰ Casos Sin Contacto (Ninguno atiende)</h3>
+                    <ul style="line-height: 1.6;">
+                        <li>Evento queda ABIERTO</li>
+                        <li>Reintento cada 1 hora</li>
+                        <li>Estado "Pendiente" al cambio de turno</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: CLASIFICACIÓN DE EVENTOS -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">08/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">CLASIFICACIÓN DE EVENTOS</h2>
+            </div>
+            <div class="classification-grid">
+                <div class="classification-card evs-card">
+                    <h3>🚨 EVS - Evento Verdadero que SÍ requiere asistencia</h3>
+                    <p><strong>Definición:</strong> Situación real que necesita ayuda médica o de la red de apoyo</p>
+                    <p><strong>Ejemplo:</strong> El afiliado se cayó y se fracturó. Requiere ambulancia.</p>
+                </div>
+                <div class="classification-card evn-card">
+                    <h3>✅ EVN - Evento Verdadero que NO requiere asistencia</h3>
+                    <p><strong>Definición:</strong> Evento real pero el afiliado no necesita ayuda externa</p>
+                    <p><strong>Ejemplo:</strong> El afiliado se cayó pero se pudo levantar solo sin requerir ayuda.</p>
+                </div>
+                <div class="classification-card ef-card">
+                    <h3>❌ EF - Evento Falso</h3>
+                    <p><strong>Definición:</strong> Activación accidental, afiliado se encuentra bien</p>
+                    <p><strong>Ejemplo:</strong> El afiliado tocó accidentalmente el "Botón de Ayuda" pero se encuentra bien. Movimiento brusco con la mano.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: GESTIÓN EVS -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">09/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">GESTIÓN EVS (SÍ REQUIERE ASISTENCIA)</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>1. Mantener contacto con afiliado</h4>
+                    <p>Línea abierta para contención<br>Acompañamiento telefónico continuo</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2. Contactar cobertura médica</h4>
+                    <p>Obra social/medicina prepaga/seguro<br>Mantener afiliado "on hold - Retener"</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>3. Avisar al Acompañante Principal (AP)</h4>
+                    <p>Informar situación y gestión<br>Posible conferencia tripartita (botón "Conexiones Rápidas")<br>Si no contesta ninguno luego de 2 intentos c/u: se debe dejar "abierto" el caso con el comentario de que no hubo interacción.</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>4. Notificar a Red de Ayuda</h4>
+                    <p>Si no tenemos contacto creamos una "tarea" para enviar el whatsapp a toda la red de ayuda.<br>WhatsApp automático (Opción E) (Son textos predefinidos)</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>5. Acompañar hasta resolución</h4>
+                    <p>Contacto hasta llegada de asistencia (ya sea en línea o con rellamados)<br>Evento se cierra cuando llega la ayuda</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: GESTIÓN EVN Y EF -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">10/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">GESTIÓN EVN Y EF</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card" style="border-left-color: #26de81;">
+                    <h3 class="card-title" style="color: #26de81;">✅ EVN (No Requiere Asistencia)</h3>
+                    <ul style="line-height: 1.8;">
+                        <li>WhatsApp a Red de Ayuda (Opción C)</li>
+                        <li>Seguimiento: Llamada a los 20 minutos</li>
+                        <li>Informar al AP telefónicamente</li>
+                        <li>Cerrar evento</li>
+                    </ul>
+                </div>
+                <div class="content-card" style="border-left-color: #a55eea;">
+                    <h3 class="card-title" style="color: #a55eea;">❌ EF (Evento Falso)</h3>
+                    <ul style="line-height: 1.8;">
+                        <li>Confirmar falsa alarma con afiliado</li>
+                        <li><strong>NO enviar WhatsApp (Importante!)</strong></li>
+                        <li>Cerrar inmediatamente</li>
+                        <li>Registrar motivo y detalles en comentarios</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <h4>📍 Geolocalización</h4>
+                <p>Solo compartir en EVS y EVN<br>Respetar privacidad del afiliado<br>No compartir en otras situaciones</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: SISTEMA WHATSAPP -->
+<div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">11/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">SISTEMA WHATSAPP</h2>
+            </div>
+            <h3 style="text-align: center; color: #667eea; margin-bottom: 20px;">📱 Mensajes Predefinidos (8 opciones)</h3>
+            <div class="content-grid" style="grid-template-columns: 1fr;">
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción A: No contacto con nadie</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Hemos recibido en nuestra plataforma una solicitud de ayuda del afiliado (nombre_usuario) del tipo: (Detección de Posible Caída o Pedido de Ayuda) y no pudimos comunicarnos con él ni con su Red de Ayuda. En caso de ver este mensaje por favor comuníquese al 0800 888 3554 Opción 1"
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción B: Contacto con Red de Ayuda logrado</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Hemos logrado tomar contacto con un miembro de la red de ayuda de: (nombre_usuario) En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1."
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción C: Evento confirmado sin necesidad de ayuda</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Hemos logrado tomar contacto con el Afiliado (nombre_usuario) por un posible evento del tipo (Detección de Posible Caída o Pedido de Ayuda) y manifestó que no requiere de ayuda"
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción D: Requiere ayuda profesional</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Hemos tomado contacto con el afiliado: (nombre_usuario) por un posible evento del tipo: (Detección de Posible Caída o Pedido de Ayuda) y manifestó que requiere ayuda profesional la que gestionaremos a la brevedad."
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción E: Asistencia médica en camino</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Informamos que hemos gestionado la ayuda profesional para el afiliado: (nombre_usuario) por un posible evento del tipo: (Detección de Posible Caída o Pedido de Ayuda). La asistencia se encuentra en camino. En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1"
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción F: Asistencia confirmada recibida</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Hemos confirmado que el afiliado (nombre_usuario) recibió asistencia por un posible evento del tipo: (Detección de Posible Caída o Pedido de Ayuda)"
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción G: Asistencia exitosa brindada</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Informamos el afiliado: (nombre_usuario) ha recibido asistencia profesional por un posible evento del tipo: (Detección de Posible Caída o Pedido de Ayuda). En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1"
+                    </p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                        <strong>Nota:</strong> Queda a criterio del Agente o Supervisor el envío de este mensaje.
+                    </p>
+                </div>
+                
+                <div class="content-card" style="border-left-color: #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 10px;">Opción H: No contacto con servicio de emergencias</h4>
+                    <p style="background: #f0f9f0; padding: 15px; border-radius: 8px; font-style: italic;">
+                        "Hemos recibido en nuestra plataforma una solicitud de ayuda del afiliado (nombre_usuario) del tipo: (Detección de Posible Caída o Pedido de Ayuda) y no pudimos comunicarnos su servicio de emergencias médicas. En caso de ver este mensaje por favor comuníquese al 0800 888 3554 Opción 1"
+                    </p>
+                </div>
+            </div>
+            <div class="special-note">
+                🚫 Regla Fundamental: NUNCA enviar WhatsApp en Eventos Falsos (EF)
+            </div>
+        </div>
+
+        <!-- SLIDE 12: CONSIDERACIONES ESPECIALES -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">12/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">CONSIDERACIONES ESPECIALES</h2>
+            </div>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3 class="card-title">🌙 Horario Nocturno (22:00 - 8:00)</h3>
+                    <p><strong>Solo:</strong> "Detecciones de Posible Caída"<br>
+                    <strong>Botón de Ayuda:</strong> 24/7 protocolo completo</p>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-title">🔒 Privacidad y Seguridad</h3>
+                    <ul style="line-height: 1.6;">
+                        <li>Geolocalización solo en EVS/EVN</li>
+                        <li>Todas las llamadas grabadas</li>
+                        <li>Solo Red verificada recibe información</li>
+                    </ul>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-title">⚡ Casos Especiales</h3>
+                    <ul style="line-height: 1.6;">
+                        <li>Llamadas frecuentes: Esperar 120 min</li>
+                        <li>Números no identificados: Verificar identidad</li>
+                        <li>Soporte técnico: Derivar a Opción 3</li>
+                        <li>Personal interno: Respetar protocolo siempre</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: CONTACTOS Y RECURSOS -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">13/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">CONTACTOS Y RECURSOS</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>📞 Números de Contacto</h3>
+                    <div style="margin-top: 15px; line-height: 1.8;">
+                        <p>🏥 <strong>Call Center</strong><br>0800 888 3554 - Opción 1</p>
+                        <p>💼 <strong>Comercial</strong><br>0800 888 3554 - Opción 2</p>
+                        <p>🛠️ <strong>Soporte Técnico</strong><br>0800 888 3554 - Opción 3</p>
+                        <p><strong>Horario:</strong> L-V 9-18, S 9-14</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <h3>💬 WhatsApp BOT</h3>
+                    <p style="font-size: 1.2em; margin: 20px 0;">+54911 6996 3554</p>
+                </div>
+                <div class="contact-card">
+                    <h3>🌐 Sitio Web</h3>
+                    <p style="font-size: 1.2em; margin: 20px 0;">https://ellie.care/</p>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 40px;">
+                <h3>🎯 Objetivo Final</h3>
+                <p>Garantizar respuesta inmediata ante emergencias y mantener contacto continuo hasta que el afiliado reciba la asistencia necesaria.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: INSTRUCTIVO ADICIONAL -->
+        <div class="slide">
+            <div class="logo-placeholder">ADDIUVA</div>
+            <div class="slide-number">14/14</div>
+            <div class="slide-header">
+                <h2 class="slide-title">INFORMACIÓN ADICIONAL</h2>
+            </div>
+            <div class="content-card">
+                <h3 class="card-title">📋 Referencia</h3>
+                <p style="font-size: 1.2em; text-align: center; margin: 40px 0;">
+                    VER PÁGINA 10 DE INSTRUCTIVO
+                </p>
+                <div style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; border-radius: 15px; text-align: center;">
+                    <h4 style="margin-bottom: 20px;">¡Gracias por su atención!</h4>
+                    <p>Para consultas adicionales, contactar a través de los canales oficiales</p>
+                    <p style="margin-top: 20px; font-weight: bold;">ADDIUVA - ELLIE CENTER</p>
+                    <p>Teleasistencia de calidad 24/7</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+        <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">◀ Anterior</button>
+        <button class="nav-btn" onclick="nextSlide()">Siguiente ▶</button>
+        <button class="nav-btn" onclick="toggleFullscreen()">⛶ Pantalla Completa</button>
+    </div>
+
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            if (n >= totalSlides) currentSlide = 0;
+            if (n < 0) currentSlide = totalSlides - 1;
+            
+            slides.forEach(slide => slide.style.display = 'none');
+            slides[currentSlide].style.display = 'flex';
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            showSlide(currentSlide);
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'F11') {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+        });
+
+
+
+        // Initialize presentation
+        showSlide(0);
+
+        // Auto-advance slides (optional - remove if not needed)
+        // setInterval(nextSlide, 30000); // 30 seconds per slide
+    </script>
+</body>
+</html>
