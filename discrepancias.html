@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Discrepancias — Guía vs Manual Operativo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11pt;
+    color: #1a202c;
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── PORTADA ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 72px;
+    border-bottom: 3px solid #e2e8f0;
+    page-break-after: always;
+  }
+  .cover-tag {
+    font-size: 8pt;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7c3aed;
+    background: #f5f3ff;
+    border: 1px solid #ddd6fe;
+    border-radius: 100px;
+    padding: 4px 14px;
+    display: inline-block;
+    margin-bottom: 32px;
+  }
+  .cover h1 {
+    font-size: 28pt;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: #0f172a;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .cover h1 span { color: #7c3aed; }
+  .cover p {
+    font-size: 11pt;
+    color: #64748b;
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .cover-meta-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+  .cover-meta-value {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #334155;
+  }
+  .cover-footer {
+    margin-top: auto;
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-top: 1px solid #e2e8f0;
+  }
+  .cover-logo-text {
+    font-size: 13pt;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+  .cover-logo-divider {
+    width: 1px;
+    height: 20px;
+    background: #cbd5e1;
+  }
+  .cover-logo-sub {
+    font-size: 9pt;
+    color: #94a3b8;
+  }
+
+  /* ── CONTENIDO ── */
+  .content {
+    padding: 48px 72px 60px;
+  }
+
+  /* ── SECCIÓN ── */
+  .section {
+    margin-bottom: 40px;
+    page-break-inside: avoid;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f1f5f9;
+  }
+  .section-tag {
+    font-size: 7.5pt;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 5px;
+    flex-shrink: 0;
+  }
+  .tag-red    { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .tag-orange { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+  .tag-blue   { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+  .section-title h2 {
+    font-size: 13pt;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── TARJETA DE DISCREPANCIA ── */
+  .disc-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 14px;
+    page-break-inside: avoid;
+  }
+  .disc-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 18px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .disc-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8pt;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .disc-num.red    { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .disc-num.orange { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+  .disc-num.blue   { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+  .disc-card-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .disc-card-location {
+    margin-left: auto;
+    font-size: 8pt;
+    font-weight: 600;
+    color: #94a3b8;
+    white-space: nowrap;
+  }
+  .disc-card-body {
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── Comparación lado a lado ── */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .compare-box {
+    border-radius: 7px;
+    padding: 10px 13px;
+  }
+  .compare-box.wrong {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+  }
+  .compare-box.right {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+  .compare-label {
+    font-size: 7pt;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .compare-box.wrong .compare-label { color: #dc2626; }
+  .compare-box.right .compare-label { color: #16a34a; }
+  .compare-text {
+    font-size: 9.5pt;
+    color: #374151;
+    line-height: 1.55;
+  }
+  .compare-text strong { color: #0f172a; }
+
+  /* ── Descripción simple ── */
+  .disc-desc {
+    font-size: 9.5pt;
+    color: #475569;
+    line-height: 1.7;
+  }
+  .disc-desc strong { color: #0f172a; }
+
+  /* ── Lista dentro de card ── */
+  .disc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .disc-list li {
+    display: flex;
+    gap: 9px;
+    font-size: 9.5pt;
+    color: #475569;
+    line-height: 1.6;
+  }
+  .disc-list li::before {
+    content: '›';
+    color: #94a3b8;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .disc-list li strong { color: #0f172a; }
+
+  /* ── Resumen final ── */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin-top: 8px;
+  }
+  .summary-table th {
+    text-align: left;
+    padding: 9px 14px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .summary-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: top;
+  }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .pill {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-weight: 800;
+    padding: 2px 9px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+  }
+  .pill.alta   { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+  .pill.media  { background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; }
+
+  /* ── Print ── */
+  @media print {
+    body { font-size: 10.5pt; }
+    .cover { padding: 48px 56px; }
+    .content { padding: 36px 56px 48px; }
+    .section { page-break-inside: avoid; }
+    .disc-card { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     PORTADA
+══════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-tag">Informe interno · Ellie Care</div>
+  <h1>Discrepancias entre<br><span>Guía de Referencia</span><br>y Manual Operativo</h1>
+  <p>Análisis comparativo del contenido actual de la guía rápida de operadores frente al Manual Operativo Actualización Marzo 2024. Se detallan errores, omisiones críticas y ausencias secundarias.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Documento fuente</span>
+      <span class="cover-meta-value">Manual Operativo — Marzo 2024</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Fecha del análisis</span>
+      <span class="cover-meta-value">Abril 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Discrepancias críticas</span>
+      <span class="cover-meta-value">6</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Discrepancias secundarias</span>
+      <span class="cover-meta-value">5</span>
+    </div>
+  </div>
+  <div class="cover-footer">
+    <span class="cover-logo-text">Ellie Care</span>
+    <div class="cover-logo-divider"></div>
+    <span class="cover-logo-sub">Guía de Atención — Protocolo de Operadores</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     CONTENIDO
+══════════════════════════════════ -->
+<div class="content">
+
+  <!-- ─── SECCIÓN 1: ERRORES ─── -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-tag tag-red">🔴 Error — dato incorrecto</span>
+      <h2>Información incorrecta en la guía actual</h2>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num red">1</div>
+        <span class="disc-card-title">Intervalo de llamadas de seguimiento en EVS</span>
+        <span class="disc-card-location">EVS — Paso 5</span>
+      </div>
+      <div class="disc-card-body">
+        <div class="compare">
+          <div class="compare-box wrong">
+            <div class="compare-label">✗ Guía actual dice</div>
+            <div class="compare-text">Quedarse en línea o llamar cada <strong>10 / 15 min</strong></div>
+          </div>
+          <div class="compare-box right">
+            <div class="compare-label">✓ Manual indica</div>
+            <div class="compare-text">Llamar cada <strong>5 minutos</strong> si el afiliado no quiere línea continua (sección 2.1.3)</div>
+          </div>
+        </div>
+        <p class="disc-desc">El intervalo duplicado podría dejar al afiliado sin contacto demasiado tiempo en una situación de emergencia activa.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─── SECCIÓN 2: CRÍTICAS ─── -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-tag tag-red">🔴 Alta prioridad — ausencias críticas</span>
+      <h2>Información ausente que afecta la operación</h2>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num red">2</div>
+        <span class="disc-card-title">EVS — Protocolo cuando el afiliado está acompañado</span>
+        <span class="disc-card-location">EVS — falta paso</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">El manual (sección 2.1.4) establece un procedimiento específico que la guía no menciona en ningún paso de EVS:</p>
+        <ul class="disc-list">
+          <li>Preguntar al afiliado si la persona presente es <strong>"conocida"</strong> o <strong>"no conocida"</strong>.</li>
+          <li>En <strong>ambos casos</strong>, solicitar que le pase el teléfono a esa persona para obtener más información del evento.</li>
+          <li>Una vez obtenida la información, volver a la comunicación directa con el afiliado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num red">3</div>
+        <span class="disc-card-title">Regla de detecciones de caída repetidas — límite de 120 minutos</span>
+        <span class="disc-card-location">No figura en la guía</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">Si un mismo afiliado envía múltiples "Detección de Posible Caída" seguidas (ej. haciendo ejercicio, lijando), el manual indica:</p>
+        <ul class="disc-list">
+          <li>Llamarle <strong>solo una vez dentro de los 120 minutos</strong> siguientes a ese primer contacto.</li>
+          <li>Indicarle que si necesita ayuda presione el <strong>Botón de Ayuda</strong> para no volver a molestarlo.</li>
+          <li><strong>Excepción absoluta:</strong> los Pedidos de Ayuda se responden siempre y a toda hora, aunque sean múltiples dentro de los mismos 5 minutos.</li>
+        </ul>
+        <p class="disc-desc" style="margin-top:4px;">El exceso de llamados puede cansar a los adultos mayores. Esta regla protege la experiencia del afiliado.</p>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num red">4</div>
+        <span class="disc-card-title">WPP Opción B — ausente en la sección WhatsApp</span>
+        <span class="disc-card-location">Guía WPP — falta tarjeta</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">La guía no incluye la Opción B, que se envía cuando, luego de haber enviado la Opción A (sin contacto), finalmente se logra comunicar con algún miembro de la Red de Ayuda. Texto del mensaje:</p>
+        <ul class="disc-list">
+          <li><em>"Hemos logrado tomar contacto con un miembro de la red de ayuda de: (nombre_usuario). En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1."</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num red">5</div>
+        <span class="disc-card-title">WPP Opción H — ausente en la sección WhatsApp</span>
+        <span class="disc-card-location">Guía WPP — falta tarjeta</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">Solo aplica en EVS cuando se confirma que el afiliado necesita ambulancia pero no se logró contactar al servicio médico. Texto del mensaje:</p>
+        <ul class="disc-list">
+          <li><em>"Hemos recibido en nuestra plataforma una solicitud de ayuda del afiliado (nombre_usuario) del tipo: (…) y no pudimos comunicarnos con su servicio de emergencias médicas. En caso de ver este mensaje por favor comuníquese al 0800 888 3554 Opción 1"</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num red">6</div>
+        <span class="disc-card-title">Regla de privacidad sobre geolocalización</span>
+        <span class="disc-card-location">No figura en la guía</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">El manual (sección 2.1.8) establece una regla legal que no está mencionada en ningún paso de la guía:</p>
+        <ul class="disc-list">
+          <li>La geolocalización del afiliado <strong>solo puede compartirse</strong> con la Red de Ayuda en caso de <strong>EVN o EVS confirmado</strong>.</li>
+          <li><strong>No se puede brindar la ubicación</strong> en ninguna otra situación, aunque un familiar lo solicite expresamente.</li>
+          <li>Motivo: cuestiones de privacidad y legales.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─── SECCIÓN 3: SECUNDARIAS ─── -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-tag tag-orange">🟡 Media prioridad — ausencias secundarias</span>
+      <h2>Información útil no incluida en la guía</h2>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num orange">7</div>
+        <span class="disc-card-title">Estado "Pendiente" del caso</span>
+        <span class="disc-card-location">Plataforma — no mencionado</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">Cuando un caso no puede cerrarse dentro del turno del agente (ej. ningún miembro de la Red respondió), debe marcarse como <strong>Pendiente</strong> — no Abierto. Permite que el agente del turno siguiente sepa que el caso sigue sin resolución. La guía solo menciona los estados EF, EVN, EVS y Abierto.</p>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num orange">8</div>
+        <span class="disc-card-title">Advertencias de veracidad en WPP E, F y G</span>
+        <span class="disc-card-location">Guía WPP — detalle faltante</span>
+      </div>
+      <div class="disc-card-body">
+        <ul class="disc-list">
+          <li><strong>Opción E:</strong> enviar solo cuando se tiene acreditado que la asistencia realmente está en camino.</li>
+          <li><strong>Opciones F y G:</strong> solo enviar si se tiene certeza del resultado. Si no hay seguridad, es preferible no enviarlas.</li>
+          <li><strong>Riesgo específico de G:</strong> si la ambulancia llegó pero no pudo ayudar al afiliado, el mensaje puede ser inoportuno e incomodar a los familiares.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num orange">9</div>
+        <span class="disc-card-title">Error de plataforma — formato de número con "9"</span>
+        <span class="disc-card-location">Notas técnicas — ausente</span>
+      </div>
+      <div class="disc-card-body">
+        <p class="disc-desc">En llamadas salientes desde AWS, si la plataforma indica <em>"no corresponde a un abonado en servicio"</em>, usar <strong>Conexiones Rápidas</strong> y agregar el <strong>"9"</strong> al número marcado.</p>
+        <p class="disc-desc">Ejemplo: <strong>+54 9 11630565571</strong></p>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num orange">10</div>
+        <span class="disc-card-title">Grabaciones telefónicas</span>
+        <span class="disc-card-location">No figura en la guía</span>
+      </div>
+      <div class="disc-card-body">
+        <ul class="disc-list">
+          <li><strong>Al contactarse:</strong> "Ud. Está comunicado a través de su reloj con Ellie Care, su empresa de teleasistencia. Aguarde un instante…"</li>
+          <li><strong>Al quedar en espera:</strong> "Ud. está comunicado a través de su reloj con Ellie Care… Su llamado está en espera. En instantes retomará la conversación…"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="disc-card">
+      <div class="disc-card-head">
+        <div class="disc-num orange">11</div>
+        <span class="disc-card-title">Contactos de referencia interna</span>
+        <span class="disc-card-location">No figura en la guía</span>
+      </div>
+      <div class="disc-card-body">
+        <ul class="disc-list">
+          <li><strong>Call Center (Opción 1):</strong> 0800 888 3554</li>
+          <li><strong>Soporte Técnico (Opción 3):</strong> 0800 888 3554 — L a V 9 a 18 / Sáb 9 a 14</li>
+          <li><strong>BOT:</strong> +54 911 6996 3554</li>
+          <li><strong>Mail reclamos de la Red:</strong> pablo.buratti@ellie.care</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─── RESUMEN ─── -->
+  <div class="section">
+    <div class="section-title">
+      <span class="section-tag tag-blue">Resumen</span>
+      <h2>Tabla de discrepancias</h2>
+    </div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Discrepancia</th>
+          <th>Tipo</th>
+          <th>Prioridad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Intervalo seguimiento EVS: 10/15 min en lugar de 5 min</td>
+          <td>Error de dato</td>
+          <td><span class="pill alta">Alta</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>EVS — procedimiento para afiliado acompañado (ausente)</td>
+          <td>Ausencia</td>
+          <td><span class="pill alta">Alta</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Regla de detecciones repetidas — límite 120 min (ausente)</td>
+          <td>Ausencia</td>
+          <td><span class="pill alta">Alta</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>WPP Opción B — contacto logrado con la Red (ausente)</td>
+          <td>Ausencia</td>
+          <td><span class="pill alta">Alta</span></td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>WPP Opción H — no contacto con emergencias médicas (ausente)</td>
+          <td>Ausencia</td>
+          <td><span class="pill alta">Alta</span></td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Regla de privacidad de geolocalización (ausente)</td>
+          <td>Ausencia</td>
+          <td><span class="pill alta">Alta</span></td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Estado "Pendiente" del caso (no mencionado)</td>
+          <td>Ausencia</td>
+          <td><span class="pill media">Media</span></td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Advertencias de veracidad en WPP E, F y G</td>
+          <td>Ausencia</td>
+          <td><span class="pill media">Media</span></td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>Formato de número con "9" en llamadas salientes</td>
+          <td>Ausencia</td>
+          <td><span class="pill media">Media</span></td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Grabaciones telefónicas (textos)</td>
+          <td>Ausencia</td>
+          <td><span class="pill media">Media</span></td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>Contactos de referencia interna</td>
+          <td>Ausencia</td>
+          <td><span class="pill media">Media</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

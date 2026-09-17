@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protocolo de Atención — Ellie Care</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<!-- ===== MODAL EF ===== -->
+<div id="modal-ef" class="event-modal" onclick="if(event.target===this)closeModal('ef')">
+  <div class="event-modal-inner ef">
+    <div class="event-modal-header">
+      <div class="event-modal-title">
+        <div class="branch-badge ef">EF</div>
+        <div>
+          <h2>Evento Falso</h2>
+          <p>El/la afiliado/a indica que se encuentra bien y que fue un error.</p>
+        </div>
+      </div>
+      <button class="event-modal-close" onclick="closeModal('ef')">✕</button>
+    </div>
+    <div class="event-modal-body">
+      <div class="step-card" data-color="ef">
+        <div class="step-head"><div class="step-badge ef">EF-1</div><h3>Confirmar mínimo 2 veces</h3></div>
+        <div class="step-body">
+          <div class="speech-block ef"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="¿Seguro/a que se encuentra bien? ¿No necesita asistencia médica ni de su red de apoyo?">Copiar</button></div><p class="speech-txt">"¿Seguro/a que se encuentra bien? ¿No necesita asistencia médica ni de su red de apoyo?"</p></div>
+          <div class="rule-row"><span class="bi">⚠️</span><p>Es obligatorio corroborar un <strong>mínimo de 2 veces</strong> que esté bien.</p></div>
+        </div>
+      </div>
+      <div class="v-connector ef-line"></div>
+      <div class="step-card" data-color="ef">
+        <div class="step-head"><div class="step-badge ef">EF-2</div><h3>Identificar causa de la alerta</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><p>Preguntar qué activó la alerta (si aún no lo dijeron). El objetivo es registrarlo en los <strong>comentarios del caso</strong>.</p></div>
+        </div>
+      </div>
+      <div class="v-connector ef-line"></div>
+      <div class="step-card" data-color="ef">
+        <div class="step-head"><div class="step-badge ef">EF-3</div><h3>Despedida</h3></div>
+        <div class="step-body">
+          <div class="speech-block ef"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Me alegro de que se encuentre bien. Muchas gracias por elegirnos, que tenga buen día / buenas noches.">Copiar</button></div><p class="speech-txt">"Me alegro de que se encuentre bien. Muchas gracias por elegirnos, que tenga buen día / buenas noches."</p></div>
+        </div>
+      </div>
+      <div class="v-connector ef-line"></div>
+      <div class="step-card" data-color="ef">
+        <div class="step-head"><div class="step-badge ef">EF-4</div><h3>Tipificar y cerrar</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><div><p>En el cuadro <strong>"Estado"</strong> tipificar como: <span class="inline-badge ef">EF</span></p><p style="margin-top:6px">Registrar en comentarios/bitácora la causa de la alerta.</p></div></div>
+          <div class="thumb-row"><figure class="thumb" onclick="openLightbox('imagenes/4. tipificación de evento.png','Selector de tipificación de evento')"><img src="imagenes/4. tipificación de evento.png" alt="Tipificación"><figcaption>Tipificar como EF</figcaption></figure></div>
+        </div>
+      </div>
+      <div class="closed-card ef-closed">✅ Caso cerrado</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL EVN ===== -->
+<div id="modal-evn" class="event-modal" onclick="if(event.target===this)closeModal('evn')">
+  <div class="event-modal-inner evn">
+    <div class="event-modal-header">
+      <div class="event-modal-title">
+        <div class="branch-badge evn">EVN</div>
+        <div>
+          <h2>Evento Verdadero Sin Asistencia</h2>
+          <p>Confirma el evento pero <strong>no</strong> requiere ayuda médica ni de su red.</p>
+        </div>
+      </div>
+      <button class="event-modal-close" onclick="closeModal('evn')">✕</button>
+    </div>
+    <div class="event-modal-body">
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-1</div><h3>Ofrecer asistencia <span class="auto-tag">automáticamente</span></h3></div>
+        <div class="step-body">
+          <div class="speech-block evn"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Entiendo lo sucedido. ¿Requiere asistencia médica o de su red de apoyo?">Copiar</button></div><p class="speech-txt">"Entiendo lo sucedido. ¿Requiere asistencia médica o de su red de apoyo?"</p></div>
+          <div class="action-row"><span class="bi">📋</span><p>El/la afiliado/a indicará que <strong>NO requiere</strong> asistencia médica ni quiere que llamemos a la red de ayuda.</p></div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-2</div><h3>Confirmar mínimo 2 veces</h3></div>
+        <div class="step-body">
+          <div class="speech-block evn"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="¿Seguro/a que no quiere que pidamos asistencia médica o de su red de apoyo?">Copiar</button></div><p class="speech-txt">"¿Seguro/a que no quiere que pidamos asistencia médica o de su red de apoyo?"</p></div>
+          <div class="rule-row"><span class="bi">⚠️</span><p>Es imprescindible corroborar un <strong>mínimo de 2 veces</strong> que se encuentre bien.</p></div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-3</div><h3>Despedida + recordatorio</h3></div>
+        <div class="step-body">
+          <div class="speech-block evn"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Me alegro de que se encuentre bien. Recuerde que si necesita ayuda puede activar el botón de pedido de ayuda y lo asistiremos de inmediato. Gracias por elegirnos y que tenga un buen día / buenas noches.">Copiar</button></div><p class="speech-txt">"Me alegro de que se encuentre bien. Recuerde que si necesita ayuda puede activar el botón de pedido de ayuda y lo asistiremos de inmediato. Gracias por elegirnos y que tenga un buen día / buenas noches."</p></div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-4</div><h3>Tipificar como <span class="evn-status-tag">EVN – Abierto</span></h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><div><p>Cambiar el estado del caso a <strong>EVN – Abierto</strong>.</p><p style="margin-top:5px">Dentro de los próximos <strong>20 minutos</strong> se debe realizar una llamada de seguimiento.</p></div></div>
+          <div class="timer-wrap"><button id="timer-btn" class="timer-btn" onclick="toggleTimer()"><span class="timer-icon">⏱️</span><span id="timer-label">Iniciar 20 min</span></button></div>
+          <div class="thumb-row">
+            <figure class="thumb" onclick="openLightbox('imagenes/4. tipificación de evento.png','Selector de estado de evento')"><img src="imagenes/4. tipificación de evento.png" alt="Selector estado"><figcaption>Selector de estado</figcaption></figure>
+            <figure class="thumb" onclick="openLightbox('imagenes/5. EVN ABIERTO.png','Seleccionar EVN — Abierto')"><img src="imagenes/5. EVN ABIERTO.png" alt="EVN Abierto"><figcaption>EVN — Abierto</figcaption></figure>
+          </div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card step-decision" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-5</div><h3>Llamada de seguimiento <span class="time-chip">a los 20 min</span></h3></div>
+        <div class="step-body">
+          <div class="speech-block evn"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Buenos días/tardes/noches Sr/Sra XX XXX, soy XX XXX de Ellie Center nuevamente. Quería asegurarme que se encuentre bien.">Copiar</button></div><p class="speech-txt">"Buenos días/tardes/noches Sr/Sra XX XXX, soy XX XXX de Ellie Center nuevamente. Quería asegurarme que se encuentre bien."</p></div>
+          <div class="fork-paths">
+            <div class="fork-path fork-yes"><span class="fork-badge yes">✅ Sí, está bien</span><span class="fork-arrow">→ Continuar EVN-6</span></div>
+            <div class="fork-path fork-no"><span class="fork-badge no">⚠️ Empeora / necesita ayuda</span><span class="fork-arrow">→ Escalar a EVS</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-6</div><h3>Última confirmación y despedida</h3></div>
+        <div class="step-body">
+          <div class="speech-block evn"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Me alegro de que se encuentre bien. Recuerde que si necesita ayuda puede activar el botón de pedido de ayuda y lo asistiremos de inmediato. Gracias por elegirnos y que tenga un buen día / buenas noches.">Copiar</button></div><p class="speech-txt">"Me alegro de que se encuentre bien. Recuerde que si necesita ayuda puede activar el botón de pedido de ayuda y lo asistiremos de inmediato. Gracias por elegirnos y que tenga un buen día / buenas noches."</p></div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-7</div><h3>Envío de mensaje WhatsApp</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><ol class="action-ol"><li>Ir a <strong>"Crear tarea"</strong></li><li>Seleccionar <strong>envío de WPP</strong></li><li>Copiar el <strong>nombre del caso</strong> (usar botón de copiado disponible)</li><li>Copiar <strong>ID de afiliado</strong>: clic en el nombre del cliente (en celeste) → se abre el perfil → copiar el ID marcado en amarillo</li><li>Seleccionar tipo <strong>C: "Logramos contactar al afiliado y no requiere ayuda"</strong></li><li>Completar el <strong>tipo de alerta</strong> recibida → clic en <strong>Enviar</strong></li></ol></div>
+          <div class="thumb-row">
+            <figure class="thumb" onclick="openLightbox('imagenes/6. COPIAR NOMBRE.png','Botón copiar nombre del cliente')"><img src="imagenes/6. COPIAR NOMBRE.png" alt="Copiar nombre"><figcaption>Copiar nombre</figcaption></figure>
+            <figure class="thumb" onclick="openLightbox('imagenes/7. COPIAR ID DE AFILIADO.png','ID de afiliado en el perfil (marcado en amarillo)')"><img src="imagenes/7. COPIAR ID DE AFILIADO.png" alt="Copiar ID afiliado"><figcaption>Copiar ID afiliado</figcaption></figure>
+          </div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-8</div><h3>Llamar al AP (Acompañante Principal)</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><div><p>Comunicarse con el AP e informarle:</p><ul class="action-ul"><li>Que hubo un evento</li><li>Que el/la afiliado/a <strong>se encuentra bien y no requiere ayuda</strong></li></ul></div></div>
+        </div>
+      </div>
+      <div class="v-connector evn-line"></div>
+      <div class="step-card" data-color="evn">
+        <div class="step-head"><div class="step-badge evn">EVN-9</div><h3>Completar bitácora y cerrar</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><div><p>Completar comentarios / bitácora del caso.</p><p style="margin-top:6px">Cambiar estado de <span class="inline-badge evn">EVN – Abierto</span> a <span class="inline-badge evn-closed">EVN – Cerrado</span></p></div></div>
+        </div>
+      </div>
+      <div class="closed-card evn-closed-card">✅ Caso cerrado</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL EVS ===== -->
+<div id="modal-evs" class="event-modal" onclick="if(event.target===this)closeModal('evs')">
+  <div class="event-modal-inner evs">
+    <div class="event-modal-header">
+      <div class="event-modal-title">
+        <div class="branch-badge evs">EVS</div>
+        <div>
+          <h2>Evento Verdadero Con Asistencia</h2>
+          <p>El/la cliente necesita ayuda. Actuar con <strong>calma y orden</strong>.</p>
+        </div>
+      </div>
+      <button class="event-modal-close" onclick="closeModal('evs')">✕</button>
+    </div>
+    <div class="event-modal-body">
+      <button class="af-trigger" onclick="openAfModal()">
+        <span class="af-flag">🇵🇪</span>
+        <div class="af-trigger-text"><span class="af-label">Sub-protocolo</span><span class="af-trigger-title">Afiliado/a de <strong>Assist Fe Perú</strong></span></div>
+        <span class="af-trigger-arrow">Ver protocolo →</span>
+      </button>
+      <div class="v-connector evs-line" style="margin-top:14px"></div>
+      <div class="step-card" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-1</div><h3>Obtener información del afiliado/a</h3></div>
+        <div class="step-body">
+          <div class="speech-block evs"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="¿Dónde se encuentra? Voy a solicitar la asistencia médica, necesito preguntarle un poco más qué fue lo que le sucedió así le brindo la información a la ambulancia. ¿Se encuentra solo/a actualmente?">Copiar</button></div><p class="speech-txt">"¿Dónde se encuentra?"<br>"Voy a solicitar la asistencia médica, necesito preguntarle un poco más qué fue lo que le sucedió así le brindo la información a la ambulancia."<br>"¿Se encuentra solo/a actualmente?"</p></div>
+          <div class="rule-row"><span class="bi">⚠️</span><p>Se pueden sumar consultas pertinentes al caso. <strong>NUNCA dar consejos ni indicaciones médicas de ninguna índole.</strong></p></div>
+        </div>
+      </div>
+      <div class="v-connector evs-line"></div>
+      <div class="step-card" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-2</div><h3>Avisar y dejar en espera</h3></div>
+        <div class="step-body">
+          <div class="speech-block evs"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Sr/Sra, ya mismo nos comunicamos con la emergencia médica y su red de ayuda. Voy a dejar el llamado en espera, no me corte por favor. En breve vuelvo con usted. Y recuerde que en caso de que la llamada se corte, yo lo/a voy a volver a llamar.">Copiar</button></div><p class="speech-txt">"Sr/Sra, ya mismo nos comunicamos con la emergencia médica y su red de ayuda. Voy a dejar el llamado en espera, no me corte por favor. En breve vuelvo con usted. Y recuerde que en caso de que la llamada se corte, yo lo/a voy a volver a llamar."</p></div>
+        </div>
+      </div>
+      <div class="v-connector evs-line"></div>
+      <div class="step-card" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-3</div><h3>Llamar a emergencia médica</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><p>Usar <strong>"Conexiones rápidas"</strong> y copiar el número de emergencias médicas del perfil del afiliado (visible desde la propia alerta).</p></div>
+          <div class="speech-block evs"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Buenos días/tardes/noches, mi nombre es XX XXX. Me comunico desde Ellie Care, una empresa de teleasistencia. Tenemos en línea a una afiliada que necesita una ambulancia por el motivo: [motivo]. ¿Te comparto los datos de afiliación?">Copiar</button></div><p class="speech-txt">"Buenos días/tardes/noches, mi nombre es XX XXX. Me comunico desde Ellie Care, una empresa de teleasistencia. Tenemos en línea a una afiliada que necesita una ambulancia por el motivo: [motivo]. ¿Te comparto los datos de afiliación?"</p></div>
+          <div class="action-row"><span class="bi">📋</span><div><p><strong>Datos a brindar:</strong></p><ul class="action-ul"><li>Nombre del cliente</li><li>N° de DNI / Documento</li><li>N° de afiliado</li><li>Descripción del incidente (con info obtenida en EVS-1)</li></ul></div></div>
+          <div class="rule-row"><span class="bi">⚠️</span><div><p>Si la emergencia solicita hablar directamente con el/la afiliado/a → usar opción <strong>"Unirse"</strong> para armar la conferencia.</p><p style="margin-top:5px">Finalizar el llamado sabiendo el <strong>plazo de demora</strong> de la ambulancia.</p></div></div>
+          <div class="thumb-row"><figure class="thumb" onclick="openLightbox('imagenes/9 EVS SÍ REQUIERE.png','Amazon Connect — Conexiones rápidas y datos del afiliado')"><img src="imagenes/9 EVS SÍ REQUIERE.png" alt="Conexiones rápidas"><figcaption>Conexiones rápidas</figcaption></figure></div>
+        </div>
+      </div>
+      <div class="v-connector evs-line"></div>
+      <div class="step-card" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-4</div><h3>Llamar al AP / red de ayuda</h3></div>
+        <div class="step-body">
+          <div class="speech-block evs"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Buenos días/tardes/noches, soy XX XXX. Me comunico desde Ellie Center ya que recibimos un pedido de ayuda / una posible caída a nombre de XX XXX. ¿Hablo con XX XXX?">Copiar</button></div><p class="speech-txt">"Buenos días/tardes/noches, soy XX XXX. Me comunico desde Ellie Center ya que recibimos un pedido de ayuda / una posible caída a nombre de XX XXX. ¿Hablo con XX XXX?"</p></div>
+          <div class="action-row"><span class="bi">📋</span><ul class="action-ul"><li>Informar la demora de la ambulancia</li><li>Consultar tiempo de llegada al domicilio</li><li>Asegurar que estén <strong>antes</strong> que la asistencia médica (para poder abrir la puerta)</li><li>Si es necesario → hacer <strong>conferencia entre AP / Red de ayuda y el afiliado/a</strong></li></ul></div>
+        </div>
+      </div>
+      <div class="v-connector evs-line"></div>
+      <div class="step-card step-decision" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-5</div><h3>Retomar llamada con el afiliado/a</h3></div>
+        <div class="step-body">
+          <div class="speech-block evs"><div class="speech-top"><span class="speech-mic">🎙️</span><span class="speech-lbl">Speech</span><button class="copy-btn" data-text="Sr/Sra XX XXX, la ayuda está en camino. En XX min/hs van a estar asistiéndole. ¿Quiere que me quede con usted en línea hasta que llegue la asistencia, o prefiere que vayamos haciendo llamados cada 10/15 min?">Copiar</button></div><p class="speech-txt">"Sr/Sra XX XXX, la ayuda está en camino. En XX min/hs van a estar asistiéndole. ¿Quiere que me quede con usted en línea hasta que llegue la asistencia, o prefiere que vayamos haciendo llamados cada 10/15 min?"</p></div>
+          <div class="fork-paths">
+            <div class="fork-path fork-a"><span class="fork-badge opt-a">Opción A</span><span>Quedarse en línea hasta que llegue la ayuda</span></div>
+            <div class="fork-path fork-b"><span class="fork-badge opt-b">Opción B</span><span>Llamadas de seguimiento cada 10/15 min</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="v-connector evs-line"></div>
+      <div class="step-card" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-6</div><h3>Confirmar recepción de asistencia</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><div><p>El caso se finaliza una vez que el/la afiliado/a recibe:</p><ul class="action-ul"><li><strong>Asistencia familiar / red de ayuda</strong> (cuando no quiere ambulancia, sino un familiar o conocido)</li><li><strong>Asistencia médica</strong> (ambulancia)</li></ul></div></div>
+        </div>
+      </div>
+      <div class="v-connector evs-line"></div>
+      <div class="step-card" data-color="evs">
+        <div class="step-head"><div class="step-badge evs">EVS-7</div><h3>Envío de WPP según caso</h3></div>
+        <div class="step-body">
+          <div class="action-row"><span class="bi">📋</span><div><p>Enviar WPP por <strong>cada instancia</strong> del caso:</p><ul class="action-ul"><li><strong>D)</strong> Requiere ayuda profesional</li><li><strong>E)</strong> Asistencia en camino</li><li><strong>F)</strong> Recibió asistencia / <strong>G)</strong> Recibió asistencia profesional <em>(según si se pidió o no ambulancia)</em></li><li><strong>H)</strong> No logramos contactar con la asistencia médica <em>(solo si se confirma que necesita ambulancia pero no logramos contactarlos)</em></li></ul></div></div>
+          <div class="thumb-row"><figure class="thumb" onclick="openLightbox('imagenes/10 ENVÍO WSP NO RESPONDE.png','Opciones de envío WPP para EVS')"><img src="imagenes/10 ENVÍO WSP NO RESPONDE.png" alt="Opciones WPP EVS"><figcaption>Opciones WPP</figcaption></figure></div>
+        </div>
+      </div>
+      <div class="closed-card evs-closed-card">✅ Caso cerrado — Registro completo en sistema</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL ND (Sin Contacto) ===== -->
+<div id="modal-nd" class="event-modal" onclick="if(event.target===this)closeModal('nd')">
+  <div class="event-modal-inner nd">
+    <div class="event-modal-header">
+      <div class="event-modal-title">
+        <div class="branch-badge nd">SC</div>
+        <div>
+          <h2>Sin Contacto con el Afiliado</h2>
+          <p>La alerta se recibe pero <strong>no se logra establecer comunicación</strong>. Protocolo paralelo independiente.</p>
+        </div>
+      </div>
+      <button class="event-modal-close" onclick="closeModal('nd')">✕</button>
+    </div>
+    <div class="event-modal-body">
+      <div class="nd-steps-grid">
+        <div class="nd-step-card"><div class="nd-step-num">ND-1</div><h4>Intentos al afiliado</h4><ul class="action-ul"><li>Hasta <strong>6 intentos</strong> de llamado</li><li><strong>2 llamadas</strong> por número de contacto</li><li>Intervalo de <strong>1 minuto</strong> entre intentos</li></ul></div>
+        <div class="nd-arrow">→</div>
+        <div class="nd-step-card"><div class="nd-step-num">ND-2</div><h4>Contactar Red de Ayuda</h4><ul class="action-ul"><li>Hasta <strong>5 acompañantes</strong></li><li><strong>2 llamadas</strong> a cada uno</li><li>Intervalo de <strong>2 minutos</strong> entre intentos</li></ul></div>
+        <div class="nd-arrow">→</div>
+        <div class="nd-step-card"><div class="nd-step-num">ND-3</div><h4>Registrar y dejar Abierto</h4><ul class="action-ul"><li>Evento queda en estado <strong>ABIERTO</strong></li><li>Constancia de falta de comunicación en bitácora</li><li>Enviar WPP <strong>Opción A</strong> a toda la red</li></ul></div>
+        <div class="nd-arrow">→</div>
+        <div class="nd-step-card"><div class="nd-step-num">ND-4</div><h4>Reintento tras 1 hora</h4><ul class="action-ul"><li>Repetir <strong>todo el procedimiento</strong> desde ND-1</li><li>Llamados al afiliado y a su Red de Ayuda</li></ul></div>
+      </div>
+      <div class="nd-nocturno-card">
+        <div class="nd-nocturno-head">
+          <span class="time-chip nd-chip" style="font-size:0.8rem;padding:4px 12px;">🌙 Turno nocturno — 22:00 a 08:00</span>
+          <span class="nd-step-num" style="margin-left:auto">ND-5</span>
+        </div>
+        <div class="nd-nocturno-body">
+          <div class="fork-path fork-nd-a"><span class="fork-badge nd-a">Detección de Posible Caída</span><span>Se atiende el llamado del afiliado, pero <strong>no es necesario realizar llamados activos</strong> por parte del agente durante el turno nocturno.</span></div>
+          <div class="fork-path fork-nd-b"><span class="fork-badge nd-b">🔴 Botón de Pedido de Ayuda</span><span>Se atiende el llamado <strong>y además se realizan todos los llamados según protocolo</strong> — gestión <strong>24 horas</strong>, sin excepción de horario.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ASSIST FE MODAL -->
+<div id="af-modal" class="af-modal" onclick="if(event.target===this)closeAfModal()">
+  <div class="af-modal-inner">
+    <div class="af-modal-header">
+      <div class="af-modal-title">
+        <span class="af-flag">🇵🇪</span>
+        <div>
+          <span class="af-label">Sub-protocolo EVS</span>
+          <h2>Assist Fe Perú</h2>
+        </div>
+      </div>
+      <button class="af-modal-close" onclick="closeAfModal()">✕</button>
+    </div>
+    <div class="af-body">
+
+      <div class="af-alert">
+        ⚠️ Presentarse como agente de <strong>Assist Fe</strong>, no de Ellie Care. El IVR y el perfil del cliente confirman que es Assist Fe Perú.
+      </div>
+
+      <div class="af-phase-card">
+        <div class="af-phase-head">
+          <span class="af-phase-num">F2</span>
+          <h4>Triage — 4 preguntas obligatorias</h4>
+        </div>
+        <div class="af-phase-body">
+          <ol class="action-ol">
+            <li>¿Dónde se encuentra? <em>(ubicación exacta)</em></li>
+            <li>¿Qué le sucedió / sucede? <em>(síntomas o situación)</em></li>
+            <li>¿Se encuentra solo/a?</li>
+            <li>¿A qué <strong>centro médico</strong> desea ser trasladado/a? <span class="af-req-tag">INDISPENSABLE</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="af-phase-card">
+        <div class="af-phase-head">
+          <span class="af-phase-num">F3</span>
+          <h4>Aviso interno + retener al AM en línea</h4>
+        </div>
+        <div class="af-phase-body">
+          <div class="action-row">
+            <span class="bi">📋</span>
+            <p>Notificar al <strong>líder de turno</strong> por el grupo de cabina: "EVS Assist Fe activo". Pedirle al AM que no corte la llamada mientras te comunicás con la ambulancia.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="af-phase-card">
+        <div class="af-phase-head">
+          <span class="af-phase-num">F4</span>
+          <h4>Llamar a Cabina Perú</h4>
+        </div>
+        <div class="af-phase-body">
+          <div class="action-row">
+            <span class="bi">📋</span>
+            <div>
+              <p>Llamar al <span class="af-phone">+51 1 644 1934</span> — atendido por otro/a coordinador/a Voccare.</p>
+              <p style="margin-top:4px">⚠️ <strong>Mantener tono profesional y sentido de urgencia.</strong></p>
+            </div>
+          </div>
+          <div class="speech-block evs">
+            <div class="speech-top">
+              <span class="speech-mic">🎙️</span>
+              <span class="speech-lbl">Speech al agente</span>
+              <button class="copy-btn" data-text="Solicito ambulancia para el afiliado [Nombre y Apellido] por [Motivo]">Copiar</button>
+            </div>
+            <p class="speech-txt">"Solicito ambulancia para el afiliado [Nombre y Apellido] por [Motivo]"</p>
+          </div>
+          <div class="action-row">
+            <span class="bi">📋</span>
+            <div>
+              <p><strong>Datos a brindar:</strong> Documento · Domicilio · Teléfono de contacto</p>
+              <p style="margin-top:4px">Finalizar confirmando el <strong>ETA</strong> de la ambulancia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="af-phase-card">
+        <div class="af-phase-head">
+          <span class="af-phase-num">F5</span>
+          <h4>Seguimiento y acompañamiento</h4>
+        </div>
+        <div class="af-phase-body">
+          <ul class="action-ul">
+            <li>Volver con el AM, informar el ETA y ofrecer quedarse en línea o llamar cada 10/15 min.</li>
+            <li>Para actualizaciones del estado → llamar de nuevo al <span class="af-phone">+51 1 644 1934</span>.</li>
+            <li>Asignación de asistencia es responsabilidad <strong>exclusiva de cabina Perú</strong> — nuestro rol es de seguimiento.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="header-logos">
+      <img src="ellie_logo.webp"
+           class="logo-elliecare" alt="Ellie Care">
+      <div class="logos-divider"></div>
+      <img src="https://voccare.global/wp-content/uploads/2020/10/Logo-center-home.png"
+           class="logo-voccare" alt="VocCare">
+    </div>
+
+    <div class="header-title-group">
+      <h1>Protocolo de Atención</h1>
+      <span>Guía operativa para atención de alertas</span>
+    </div>
+
+    <nav class="event-nav">
+      <a href="#section-general" class="enav-pill general">Inicio</a>
+      <a href="#" class="enav-pill ef"  onclick="event.preventDefault();openModal('ef')">🟢 EF</a>
+      <a href="#" class="enav-pill evn" onclick="event.preventDefault();openModal('evn')">🟣 EVN</a>
+      <a href="#" class="enav-pill evs" onclick="event.preventDefault();openModal('evs')">🔴 EVS</a>
+      <a href="#" class="enav-pill evs af-pill" onclick="event.preventDefault();openAfModal()">🇵🇪 Assist Fe</a>
+      <a href="#" class="enav-pill nd"  onclick="event.preventDefault();openModal('nd')">🟠 Sin contacto</a>
+    </nav>
+
+    <a href="manual.html" class="manual-link" title="Ver manual completo">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Manual
+    </a>
+
+
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       PASOS GENERALES
+  ============================================================ -->
+  <section id="section-general" class="section-general">
+    <div class="section-eyebrow">
+      <span class="eyebrow-tag general">INICIO DE LLAMADA</span>
+      <span class="eyebrow-sub">Aplica a todos los eventos</span>
+    </div>
+
+    <div class="general-flow">
+
+      <!-- PASO 1 -->
+      <div class="step-card fade-up" data-color="general">
+        <div class="step-head">
+          <div class="step-badge general">1</div>
+          <h3>Ingresa alerta en plataforma</h3>
+        </div>
+        <div class="step-body">
+          <div class="action-row">
+            <span class="bi">📋</span>
+            <p>La llamada aparece en la plataforma. Al aceptarla se abre el perfil del cliente con su información básica y la alerta o evento detectado.</p>
+          </div>
+          <div class="thumb-row">
+            <figure class="thumb" onclick="openLightbox('imagenes/1 - ingreso de llamada.png','Pantalla de ingreso de llamada')">
+              <img src="imagenes/1 - ingreso de llamada.png" alt="Ingreso de llamada">
+              <figcaption>Ingreso de llamada</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="v-connector general-line"></div>
+
+      <!-- PASO 2 -->
+      <div class="step-card fade-up" data-color="general">
+        <div class="step-head">
+          <div class="step-badge general">2</div>
+          <h3>Presentación completa y fluida</h3>
+        </div>
+        <div class="step-body">
+          <div class="action-row">
+            <span class="bi">📋</span>
+            <div>
+              <p>Ir a la solapa del evento → asignarla a tu nombre → seleccionar <strong>"Usuario conectado"</strong>.</p>
+            </div>
+          </div>
+          <div class="speech-block general">
+            <div class="speech-top">
+              <span class="speech-mic">🎙️</span>
+              <span class="speech-lbl">Speech de presentación</span>
+              <button class="copy-btn" data-text="Buenos días/tardes/noches (según horario) Sr/Sra XX XX, mi nombre es XX XX. Me comunico de Ellie Center porque recibimos un pedido de ayuda / una alerta de posible caída. ¿Se encuentra bien?">Copiar</button>
+            </div>
+            <p class="speech-txt">"Buenos días/tardes/noches (según horario) Sr/Sra XX XX, mi nombre es XX XX. Me comunico de Ellie Center porque recibimos un pedido de ayuda / una alerta de posible caída. ¿Se encuentra bien?"</p>
+          </div>
+          <div class="thumb-row">
+            <figure class="thumb" onclick="openLightbox('imagenes/2. una vez aceptada aparece esto.png','Perfil del cliente al aceptar la llamada')">
+              <img src="imagenes/2. una vez aceptada aparece esto.png" alt="Perfil del cliente">
+              <figcaption>Perfil del cliente</figcaption>
+            </figure>
+            <figure class="thumb" onclick="openLightbox('imagenes/3. Asignar llamada según usuario.png','Asignar llamada — seleccionar Usuario conectado')">
+              <img src="imagenes/3. Asignar llamada según usuario.png" alt="Asignar llamada">
+              <figcaption>Asignar llamada</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /general-flow -->
+  </section>
+
+  <!-- ============================================================
+       NODO DE DECISIÓN
+  ============================================================ -->
+  <div class="decision-strip fade-up">
+    <div class="decision-box">
+      <div class="decision-diamond">?</div>
+      <div class="decision-copy">
+        <h2>¿Cuál es el escenario?</h2>
+        <p>A partir de la respuesta del afiliado/a se determinan 3 posibles casos</p>
+      </div>
+      <div class="decision-options">
+        <span class="doption ef">🟢 EF · Evento Falso</span>
+        <span class="doption evn">🟣 EVN · Sin asistencia</span>
+        <span class="doption evs">🔴 EVS · Con asistencia</span>
+        <span class="doption nd">🟠 Sin contacto</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       LAUNCHER DE EVENTOS
+  ============================================================ -->
+  <section class="event-launcher">
+    <div class="launcher-grid">
+
+      <button class="launcher-card ef fade-up" onclick="openModal('ef')">
+        <div class="launcher-card-top">
+          <div class="branch-badge ef">EF</div>
+          <div><h3>Evento Falso</h3><p>El afiliado indica que está bien y fue un error.</p></div>
+        </div>
+        <span class="launcher-cta">Ver protocolo →</span>
+      </button>
+
+      <button class="launcher-card evn fade-up" onclick="openModal('evn')">
+        <div class="launcher-card-top">
+          <div class="branch-badge evn">EVN</div>
+          <div><h3>Sin Asistencia</h3><p>Confirma el evento pero no requiere ayuda médica.</p></div>
+        </div>
+        <span class="launcher-cta">Ver protocolo →</span>
+      </button>
+
+      <button class="launcher-card evs fade-up" onclick="openModal('evs')">
+        <div class="launcher-card-top">
+          <div class="branch-badge evs">EVS</div>
+          <div><h3>Con Asistencia</h3><p>El cliente necesita ayuda médica o de su red.</p></div>
+        </div>
+        <span class="launcher-cta">Ver protocolo →</span>
+      </button>
+
+      <button class="launcher-card nd fade-up" onclick="openModal('nd')">
+        <div class="launcher-card-top">
+          <div class="branch-badge nd">SC</div>
+          <div><h3>Sin Contacto</h3><p>No se logra establecer comunicación con el afiliado.</p></div>
+        </div>
+        <span class="launcher-cta">Ver protocolo →</span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GUÍA DE WHATSAPP
+  ============================================================ -->
+  <section class="wpp-section">
+    <div class="wpp-section-head fade-up">
+      <div class="wpp-icon-wrap">💬</div>
+      <div>
+        <h2>Guía de Mensajes WhatsApp</h2>
+        <p>Cuándo y cómo usar los mensajes predefinidos hacia la Red de Ayuda</p>
+      </div>
+    </div>
+
+    <div class="wpp-grid">
+
+      <!-- EF — Prohibido -->
+      <div class="wpp-card fade-up wpp-ef">
+        <div class="wpp-card-top">
+          <span class="wpp-event-badge ef">EF</span>
+          <span class="wpp-rule-tag prohibited">❌ PROHIBIDO</span>
+        </div>
+        <p class="wpp-card-body">Está <strong>estrictamente prohibido</strong> enviar mensajes de WhatsApp cuando se confirme que el evento es falso.</p>
+      </div>
+
+      <!-- EVN — Opción C -->
+      <div class="wpp-card fade-up wpp-evn">
+        <div class="wpp-card-top">
+          <span class="wpp-event-badge evn">EVN</span>
+          <span class="wpp-rule-tag required">✅ OBLIGATORIO</span>
+        </div>
+        <p class="wpp-card-body">Enviar siempre <strong>Opción C</strong> para informar a la red que el afiliado tuvo un evento pero manifestó <strong>no requerir ayuda</strong>.</p>
+        <div class="wpp-option-tag">C · Logramos contactar al afiliado y no requiere ayuda</div>
+      </div>
+
+      <!-- EVS — Opciones D y E -->
+      <div class="wpp-card fade-up wpp-evs">
+        <div class="wpp-card-top">
+          <span class="wpp-event-badge evs">EVS</span>
+          <span class="wpp-rule-tag conditional">⚡ SEGÚN SITUACIÓN</span>
+        </div>
+        <ul class="wpp-card-list">
+          <li><strong>Opción D</strong> — Si no se logra contacto telefónico con la red: el afiliado <strong>requiere ayuda profesional</strong></li>
+          <li><strong>Opción E</strong> — Una vez confirmado que la cobertura médica <strong>está en camino</strong></li>
+          <li><strong>Opción F / G</strong> — Para confirmar que el afiliado <strong>ya recibió la ayuda</strong> (F: red/familiar · G: asistencia profesional) — solo cuando se acredita la veracidad</li>
+        </ul>
+      </div>
+
+      <!-- Sin Contacto — Opción A -->
+      <div class="wpp-card fade-up wpp-nd">
+        <div class="wpp-card-top">
+          <span class="wpp-event-badge nd">SC</span>
+          <span class="wpp-rule-tag conditional">📣 AL AGOTAR INTENTOS</span>
+        </div>
+        <p class="wpp-card-body">Enviar <strong>Opción A</strong> a <em>toda</em> la Red de Ayuda cuando se agoten las instancias de llamado sin lograr contactar ni al afiliado ni a sus acompañantes.</p>
+        <div class="wpp-option-tag nd-opt">A · Aviso de imposibilidad de contacto</div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="scripts/app.js"></script>
+</body>
+</html>

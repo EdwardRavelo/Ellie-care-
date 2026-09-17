@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual Completo — Ellie Care</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    /* ── Estilos adicionales para manual ── */
+    .manual-hero {
+      padding: 56px 40px 40px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(96,165,250,0.04) 0%, transparent 240px);
+    }
+    [data-theme="light"] .manual-hero {
+      background: linear-gradient(180deg, rgba(29,108,212,0.05) 0%, transparent 240px);
+    }
+    .manual-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .manual-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--c-general);
+      background: var(--bg-general);
+      border: 1px solid var(--br-general);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 20px;
+    }
+    .manual-hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--t1);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .manual-hero p {
+      font-size: 0.95rem;
+      color: var(--t3);
+      line-height: 1.65;
+      max-width: 640px;
+    }
+    .manual-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .manual-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.8rem;
+      color: var(--t3);
+    }
+    .manual-meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--t3);
+      opacity: 0.4;
+    }
+
+    /* ── Layout del manual ── */
+    .manual-layout {
+      display: flex;
+      gap: 0;
+      max-width: 100%;
+    }
+    .manual-toc {
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 64px;
+      height: calc(100vh - 64px);
+      overflow-y: auto;
+      padding: 28px 20px;
+      border-right: 1px solid var(--border);
+      scrollbar-width: thin;
+    }
+    .manual-toc-title {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--t3);
+      margin-bottom: 14px;
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .toc-list a {
+      display: block;
+      padding: 6px 10px;
+      font-size: 0.83rem;
+      color: var(--t2);
+      border-radius: 7px;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1.4;
+    }
+    .toc-list a:hover {
+      background: var(--surface-2);
+      color: var(--t1);
+    }
+    .toc-list a.toc-sub {
+      padding-left: 22px;
+      font-size: 0.79rem;
+      color: var(--t3);
+    }
+    .toc-list a.toc-sub:hover { color: var(--t2); }
+
+    /* ── Contenido principal ── */
+    .manual-content {
+      flex: 1;
+      padding: 40px 48px 80px;
+      min-width: 0;
+    }
+
+    /* ── Secciones ── */
+    .manual-section {
+      margin-bottom: 56px;
+    }
+    .section-anchor {
+      display: block;
+      position: relative;
+      top: -80px;
+      visibility: hidden;
+    }
+    .manual-section-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .manual-section-num {
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: var(--c-general);
+      background: var(--bg-general);
+      border: 1px solid var(--br-general);
+      border-radius: 6px;
+      padding: 4px 10px;
+      flex-shrink: 0;
+    }
+    .manual-section-num.ef  { color: var(--c-ef);  background: var(--bg-ef);  border-color: var(--br-ef); }
+    .manual-section-num.evn { color: var(--c-evn); background: var(--bg-evn); border-color: var(--br-evn); }
+    .manual-section-num.evs { color: var(--c-evs); background: var(--bg-evs); border-color: var(--br-evs); }
+    .manual-section-num.nd  { color: var(--c-nd);  background: var(--bg-nd);  border-color: var(--br-nd); }
+    .manual-section-num.warn { color: var(--c-warn); background: var(--bg-warn); border-color: var(--br-warn); }
+
+    .manual-section-head h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--t1);
+    }
+
+    /* ── Subsecciones ── */
+    .manual-subsection {
+      margin-bottom: 28px;
+    }
+    .manual-subsection h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--t1);
+      letter-spacing: -0.015em;
+      margin-bottom: 12px;
+    }
+
+    /* ── Texto corrido ── */
+    .manual-p {
+      font-size: 0.93rem;
+      color: var(--t2);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .manual-p strong { color: var(--t1); }
+
+    /* ── Listas ── */
+    .manual-ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin: 8px 0 14px 0;
+    }
+    .manual-ul li {
+      display: flex;
+      gap: 10px;
+      font-size: 0.93rem;
+      color: var(--t2);
+      line-height: 1.65;
+    }
+    .manual-ul li::before {
+      content: '›';
+      color: var(--t3);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .manual-ol {
+      padding-left: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 8px 0 14px 0;
+    }
+    .manual-ol li {
+      font-size: 0.93rem;
+      color: var(--t2);
+      line-height: 1.65;
+    }
+    .manual-ol li strong { color: var(--t1); }
+
+    /* ── Definiciones ── */
+    .def-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 12px 0;
+    }
+    .def-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 14px;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .def-row:nth-child(odd) { background: var(--surface-2); }
+    .def-term { font-weight: 700; color: var(--t1); }
+    .def-desc { color: var(--t2); line-height: 1.55; }
+
+    /* ── Tarjetas WPP ── */
+    .wpp-manual-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .wpp-manual-card {
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .wpp-manual-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 18px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .wpp-opt-badge {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .wpp-opt-badge.a, .wpp-opt-badge.b { background: var(--bg-nd); color: var(--c-nd); border: 1px solid var(--br-nd); }
+    .wpp-opt-badge.c { background: var(--bg-evn); color: var(--c-evn); border: 1px solid var(--br-evn); }
+    .wpp-opt-badge.d, .wpp-opt-badge.e, .wpp-opt-badge.f, .wpp-opt-badge.g { background: var(--bg-evs); color: var(--c-evs); border: 1px solid var(--br-evs); }
+    .wpp-opt-badge.h { background: var(--bg-warn); color: var(--c-warn); border: 1px solid var(--br-warn); }
+
+    .wpp-manual-when {
+      font-size: 0.83rem;
+      color: var(--t2);
+      font-weight: 600;
+    }
+    .wpp-manual-body {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .wpp-manual-note {
+      font-size: 0.85rem;
+      color: var(--t3);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── Reglas destacadas ── */
+    .highlight-box {
+      border-radius: var(--r-sm);
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--t2);
+    }
+    .highlight-box.warn {
+      background: var(--bg-warn);
+      border: 1px solid var(--br-warn);
+    }
+    .highlight-box.evs {
+      background: var(--bg-evs);
+      border: 1px solid var(--br-evs);
+    }
+    .highlight-box.ef {
+      background: var(--bg-ef);
+      border: 1px solid var(--br-ef);
+    }
+    .highlight-box strong { color: var(--t1); }
+
+    /* ── Grabaciones ── */
+    .grabacion-card {
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      border: 1px solid var(--border-md);
+      background: var(--speech-bg);
+      margin: 10px 0;
+    }
+    .grabacion-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 14px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--t3);
+    }
+    .grabacion-txt {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: var(--t1);
+      padding: 14px 18px;
+    }
+
+    /* ── Notas aclaratorias ── */
+    .nota-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .nota-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 13px 16px;
+      border-radius: var(--r-sm);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 0.91rem;
+      color: var(--t2);
+      line-height: 1.7;
+    }
+    .nota-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .nota-item strong { color: var(--t1); }
+
+    /* ── Contactos ── */
+    .contactos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .contacto-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 16px;
+    }
+    .contacto-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--t3);
+      margin-bottom: 6px;
+    }
+    .contacto-value {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--t1);
+    }
+    .contacto-desc {
+      font-size: 0.8rem;
+      color: var(--t3);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .manual-toc { display: none; }
+      .manual-content { padding: 28px 24px 60px; }
+      .contactos-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 720px) {
+      .manual-hero { padding: 36px 16px 28px; }
+      .manual-content { padding: 20px 14px 48px; }
+      .contactos-grid { grid-template-columns: 1fr; }
+      .def-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <p id="lightbox-caption"></p>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="header-logos">
+      <img src="https://ellie.care/wp-content/uploads/2025/11/Ellie-Care-Logo-Negro-EC-1.png"
+           class="logo-elliecare" alt="Ellie Care">
+      <div class="logos-divider"></div>
+      <img src="https://voccare.global/wp-content/uploads/2020/10/Logo-center-home.png"
+           class="logo-voccare" alt="VocCare">
+    </div>
+
+    <div class="header-title-group">
+      <h1>Manual Completo</h1>
+      <span>Lectura profunda — Manual Operativo Marzo 2024</span>
+    </div>
+
+    <nav class="event-nav">
+      <a href="index.html" class="enav-pill general">← Guía rápida</a>
+      <a href="#sec-definiciones" class="enav-pill general">Definiciones</a>
+      <a href="#sec-recepcion" class="enav-pill general">Recepción</a>
+      <a href="#sec-gestion" class="enav-pill general">Gestión</a>
+      <a href="#sec-wpp" class="enav-pill general">WhatsApp</a>
+      <a href="#sec-notas" class="enav-pill general">Notas</a>
+    </nav>
+
+    <button id="theme-toggle" class="theme-toggle" title="Cambiar modo de color">
+      <span id="theme-icon">☀️</span>
+    </button>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="manual-hero fade-up">
+    <div class="manual-hero-inner">
+      <div class="manual-badge">📋 Manual Operativo</div>
+      <h1>Atención y Gestión de Eventos<br>Ellie Center</h1>
+      <p>Procedimiento completo para operadores. Describe responsabilidades, funciones y protocolos para la atención de alertas generadas por Botón de Ayuda, Detección de Posible Caída y parámetros biomédicos.</p>
+      <div class="manual-meta">
+        <div class="manual-meta-item">📅 Actualizado a Marzo 2024</div>
+        <div class="manual-meta-dot"></div>
+        <div class="manual-meta-item">👥 Para todos los operadores del Ellie Center</div>
+        <div class="manual-meta-dot"></div>
+        <div class="manual-meta-item"><a href="index.html" style="color:var(--c-general)">← Ver guía rápida de referencia</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="manual-layout">
+
+    <!-- ===== TABLA DE CONTENIDOS ===== -->
+    <nav class="manual-toc">
+      <div class="manual-toc-title">Contenidos</div>
+      <ul class="toc-list">
+        <li><a href="#sec-objetivo">Objetivo y alcance</a></li>
+        <li><a href="#sec-definiciones">Definiciones y abreviaturas</a></li>
+        <li><a href="#sec-recepcion">1. Recepción de un evento</a></li>
+        <li><a href="#sec-plataforma" class="toc-sub">Pantalla de trabajo</a></li>
+        <li><a href="#sec-estados" class="toc-sub">Estados del caso</a></li>
+        <li><a href="#sec-sin-contacto" class="toc-sub">Sin contacto</a></li>
+        <li><a href="#sec-gestion">2. Gestión de eventos</a></li>
+        <li><a href="#sec-evs" class="toc-sub">EVS — Con asistencia</a></li>
+        <li><a href="#sec-evn" class="toc-sub">EVN — Sin asistencia</a></li>
+        <li><a href="#sec-ef" class="toc-sub">EF — Evento falso</a></li>
+        <li><a href="#sec-wpp">3. WhatsApp — guía completa</a></li>
+        <li><a href="#sec-grabaciones">4. Grabaciones</a></li>
+        <li><a href="#sec-notas">5. Notas aclaratorias</a></li>
+        <li><a href="#sec-contactos">Contactos de referencia</a></li>
+      </ul>
+    </nav>
+
+    <!-- ===== CONTENIDO ===== -->
+    <div class="manual-content">
+
+      <!-- ── Objetivo ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-objetivo"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num">Objetivo</span>
+          <h2>Objetivo y alcance</h2>
+        </div>
+        <p class="manual-p">Establecer el proceso de atención y gestión de eventos por parte del Ellie Center, con el fin de adecuar el cumplimiento de funciones y responsabilidades dentro de un marco normativo y de control interno.</p>
+        <p class="manual-p">Contempla los diferentes tipos de eventos originados por:</p>
+        <ul class="manual-ul">
+          <li>Una alerta activada por el <strong>Botón de Ayuda</strong></li>
+          <li>Una <strong>Detección de Posible Caída</strong></li>
+          <li>Un <strong>parámetro biomédico</strong> fuera del rango establecido (actualmente no está en funcionamiento)</li>
+        </ul>
+        <p class="manual-p">Lo establecido en este procedimiento es de aplicación para <strong>todos los operadores</strong> que participen del proceso de atención y control de gestión de eventos.</p>
+      </div>
+
+      <!-- ── Definiciones ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-definiciones"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num">Definiciones</span>
+          <h2>Definiciones y abreviaturas</h2>
+        </div>
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Ellie Center</span>
+            <span class="def-desc">Centro de atención telefónica (o digital) de eventos.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Afiliado / Cliente</span>
+            <span class="def-desc">Quien usa los servicios del Ellie Center. El usuario final.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Agente / OPER</span>
+            <span class="def-desc">Operadores. Personal de asistencia on-line del Ellie Center.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Botón de Ayuda</span>
+            <span class="def-desc">Botón ejecutable por el afiliado desde un dispositivo (Smartwatch / Smartphone / Periférico).</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">AP</span>
+            <span class="def-desc">Acompañante Principal. Persona a contactar <strong>solo en caso que el afiliado no responda los llamados</strong>.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Red de Ayuda</span>
+            <span class="def-desc">Familiares, cuidadores, enfermeros, acompañantes, vecinos y cualquier otro contacto de atención primaria del afiliado.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Cobertura de Salud</span>
+            <span class="def-desc">Obra Social / Medicina Prepaga / Seguro Médico. A quién llamar cuando se confirma el evento.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">EVN</span>
+            <span class="def-desc">Evento Verdadero que <strong>NO</strong> Requiere Asistencia. Ej.: el afiliado se cayó pero se pudo levantar solo.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">EVS</span>
+            <span class="def-desc">Evento Verdadero que <strong>SÍ</strong> Requiere Asistencia. Ej.: el afiliado se cayó y se fracturó. Requiere ambulancia.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">EF</span>
+            <span class="def-desc">Evento Falso. Ej.: activación accidental del Botón de Ayuda o movimiento brusco que disparó una Detección de Posible Caída falsa.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Recepción ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-recepcion"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num">1</span>
+          <h2>Recepción de un evento</h2>
+        </div>
+
+        <span class="section-anchor" id="sec-plataforma"></span>
+        <div class="manual-subsection">
+          <h3>Pantalla de trabajo</h3>
+          <p class="manual-p">Al recibir un evento la pantalla se divide en dos zonas:</p>
+          <ul class="manual-ul">
+            <li><strong>Izquierda:</strong> central de llamadas. Muestra el número que originó el caso, permite aceptar o rechazar.</li>
+            <li><strong>Derecha:</strong> información del caso con tres solapas:</li>
+          </ul>
+          <div class="def-grid">
+            <div class="def-row">
+              <span class="def-term">A) Perfil del Cliente</span>
+              <span class="def-desc">Ficha completa del afiliado: nombre, teléfonos, dirección, fecha de nacimiento, ID, Red de Ayuda, prepaga, N° de afiliado y teléfonos de la prepaga.</span>
+            </div>
+            <div class="def-row">
+              <span class="def-term">B) Casos</span>
+              <span class="def-desc">Listado de todos los casos ingresados, filtrables por afiliado, agente o estado.</span>
+            </div>
+            <div class="def-row">
+              <span class="def-term">C) Pedido de Ayuda / Detección de Posible Caída</span>
+              <span class="def-desc">El evento activo. Información completa del afiliado, Red de Ayuda y cobertura médica. Incluye última geolocalización del reloj.</span>
+            </div>
+          </div>
+          <div class="highlight-box warn" style="margin-top:14px;">
+            <strong>Geolocalización:</strong> copiar y pegar en la barra de Chrome (aún no es hipervínculo). Solo puede compartirse con la Red de Ayuda en caso de EVN o EVS confirmado. <strong>No se puede aportar la ubicación del afiliado en ninguna otra situación</strong>, aún cuando lo solicite un familiar.
+          </div>
+        </div>
+
+        <span class="section-anchor" id="sec-estados"></span>
+        <div class="manual-subsection">
+          <h3>Estados del caso</h3>
+          <p class="manual-p">El caso se cierra manualmente desplegando la ventana <strong>"Estado"</strong> dentro de cada caso:</p>
+          <div class="def-grid">
+            <div class="def-row"><span class="def-term">EF</span><span class="def-desc">Evento Falso confirmado.</span></div>
+            <div class="def-row"><span class="def-term">EVN</span><span class="def-desc">Evento verdadero sin asistencia.</span></div>
+            <div class="def-row"><span class="def-term">EVS</span><span class="def-desc">Evento verdadero con asistencia.</span></div>
+            <div class="def-row"><span class="def-term">Pendiente</span><span class="def-desc"><strong>Cuando el caso no puede cerrarse dentro del turno del agente</strong> (ej.: nadie de la red respondió). Permite que el agente del turno siguiente retome el caso.</span></div>
+            <div class="def-row"><span class="def-term">Abierto</span><span class="def-desc">Estado transitorio hasta que pueda clasificarse de otra manera.</span></div>
+            <div class="def-row"><span class="def-term">Cerrado</span><span class="def-desc">Estado actualmente fuera de uso.</span></div>
+          </div>
+          <p class="manual-p" style="margin-top:12px;">El agente también debe <strong>autoasignarse el caso</strong> usando el botón "Usuario Conectado" (solo funciona en el ambiente de Producción).</p>
+        </div>
+
+        <span class="section-anchor" id="sec-sin-contacto"></span>
+        <div class="manual-subsection">
+          <h3>Protocolo sin contacto</h3>
+          <p class="manual-p">Si al responder el llamado no hay nadie al otro lado, o no se logra contactar al afiliado:</p>
+          <ol class="manual-ol">
+            <li><strong>Hasta 6 intentos al afiliado</strong> — 2 llamadas por número, separadas por 1 minuto. Si no tiene fijo: 3+3.</li>
+            <li><strong>Contactar la Red de Ayuda</strong> — hasta 5 acompañantes, 2 llamadas a cada uno, cada ~2 minutos. Si alguno responde, resolver juntamente con él el evento (ofrecer policía o emergencia, seguir lo que el contacto indique).</li>
+            <li><strong>Si nadie responde</strong> — dejar evento en estado <strong>ABIERTO</strong>, dejar constancia en bitácora, crear tarea (envío WPP Opción A a toda la Red).</li>
+            <li><strong>Transcurrida 1 hora</strong> — retomar y repetir todo el procedimiento desde el inicio.</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ── Gestión ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-gestion"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num evs">2 — EVS</span>
+          <h2>Gestión de eventos</h2>
+        </div>
+
+        <span class="section-anchor" id="sec-evs"></span>
+        <div class="manual-subsection">
+          <h3>2.1 EVS — Evento verdadero que SÍ requiere asistencia</h3>
+          <ol class="manual-ol">
+            <li>Contacto establecido con el afiliado que confirma EVS → poner <strong>on hold</strong> → llamar a <strong>Obra Social / Prepaga / Seguro Médico</strong> desde Conexiones Rápidas.</li>
+            <li>Concluida la solicitud → llamar al <strong>AP</strong> para informar que se está gestionando el evento. Luego volver con el afiliado (opcionalmente en conferencia).</li>
+            <li>Mantener comunicación con el afiliado de forma ininterrumpida. Si el afiliado lo pide, se puede interrumpir y retomar cada <strong>5 minutos</strong>. El deseo del afiliado prevalece.</li>
+            <li>
+              <strong>Si el afiliado está acompañado por otra persona:</strong>
+              <ul class="manual-ul" style="margin-top:6px;">
+                <li>Preguntar al afiliado si la persona es <strong>"conocida"</strong> o <strong>"no conocida"</strong>.</li>
+                <li>En ambos casos, solicitar que le pase el teléfono para obtener más información del evento.</li>
+                <li>Una vez obtenida la info, volver a la comunicación con el afiliado.</li>
+              </ul>
+            </li>
+            <li>Luego de avisar a la cobertura → enviar WPP <strong>Opción E</strong> a la Red de Ayuda (asistencia en camino).</li>
+            <li>Continuar con el afiliado hasta la llegada de la ayuda.</li>
+            <li>El caso se cierra cuando el afiliado recibe asistencia de la emergencia médica o de un miembro de la Red. Dejar constancia en comentarios.</li>
+          </ol>
+          <div class="highlight-box warn">
+            <strong>Privacidad de geolocalización (2.1.8):</strong> Solo se puede brindar la ubicación del afiliado a la Red de Ayuda en caso de EVS o EVN confirmado. En ninguna otra situación, aunque un familiar lo solicite — por cuestiones de privacidad y legales.
+          </div>
+        </div>
+
+        <div class="manual-subsection">
+          <span class="section-anchor" id="sec-evn"></span>
+          <h3>2.2 EVN — Evento verdadero que NO requiere asistencia</h3>
+          <ol class="manual-ol">
+            <li>Afiliado confirma que no requiere asistencia → crear tarea: envío WPP <strong>Opción C</strong> a toda la Red.</li>
+            <li>Registrar el evento. A los <strong>20 minutos</strong> volver a llamar al afiliado. Para que el audio quede trazado: usar el caso original y clickear sobre los teléfonos en color celeste.</li>
+            <li>Si en el seguimiento el evento escala → aplicar procedimientos EVS (2.1).</li>
+            <li>Informar telefónicamente al <strong>AP</strong> que el evento ocurrió pero no requirió asistencia.</li>
+          </ol>
+        </div>
+
+        <div class="manual-subsection">
+          <span class="section-anchor" id="sec-ef"></span>
+          <h3>2.3 EF — Evento falso</h3>
+          <p class="manual-p">Cuando el afiliado confirma que fue una falsa alarma: cerrar el evento y registrar en comentarios:</p>
+          <ul class="manual-ul">
+            <li>Fecha y hora del evento</li>
+            <li>Tipo de evento</li>
+            <li>Hora en que se contactó al afiliado y hora en que atendió</li>
+            <li>Motivo del cierre</li>
+            <li>Cualquier otra información relevante</li>
+          </ul>
+          <div class="highlight-box warn">
+            <strong>Turno nocturno (22:00 a 08:00):</strong>
+            <ul class="manual-ul" style="margin-top:8px;">
+              <li><strong>Detección de Posible Caída:</strong> se atiende el llamado del afiliado, pero no es necesario realizar llamados activos por parte del agente.</li>
+              <li><strong>Botón de Pedido de Ayuda:</strong> se atiende el llamado y además se realizan todos los llamados según protocolo — gestión 24 horas, sin excepción de horario.</li>
+            </ul>
+          </div>
+          <p class="manual-p">Al finalizar el turno: recordar <strong>cerrar sesión</strong> → "ruedita" al lado del desplegable de estados → última opción del desplegable.</p>
+        </div>
+      </div>
+
+      <!-- ── WhatsApp ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-wpp"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num warn">3 — WPP</span>
+          <h2>Uso de notificaciones por WhatsApp</h2>
+        </div>
+
+        <div class="highlight-box ef" style="margin-bottom:20px;">
+          Los mensajes tienen formas predefinidas. <strong>No es posible agregar texto libre.</strong>
+          <ul class="manual-ul" style="margin-top:8px;">
+            <li><strong>EF:</strong> NUNCA enviar WhatsApp.</li>
+            <li><strong>EVN:</strong> SIEMPRE enviar Opción C.</li>
+            <li><strong>EVS:</strong> enviar cuando no se logre contacto telefónico con la Red.</li>
+          </ul>
+        </div>
+
+        <div class="wpp-manual-grid">
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge a">Opción A</span>
+              <span class="wpp-manual-when">Sin contacto con el afiliado ni con la Red — al agotar todos los intentos</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block nd" style="border-color:var(--br-nd)">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Hemos recibido en nuestra plataforma una solicitud de ayuda del afiliado <em>(nombre_usuario)</em> del tipo: <em>(Detección de Posible Caída o Pedido de Ayuda)</em> y no pudimos comunicarnos con él ni con su Red de Ayuda. En caso de ver este mensaje por favor comuníquese al 0800 888 3554 Opción 1</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge b">Opción B</span>
+              <span class="wpp-manual-when">Cuando finalmente se logró contactar con algún miembro de la Red de Ayuda</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block nd" style="border-color:var(--br-nd)">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Hemos logrado tomar contacto con un miembro de la red de ayuda de: <em>(nombre_usuario)</em>. En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge c">Opción C</span>
+              <span class="wpp-manual-when">EVN — Siempre obligatorio al confirmar que el afiliado no requiere ayuda</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block evn">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Hemos logrado tomar contacto con el Afiliado <em>(nombre_usuario)</em> por un posible evento del tipo <em>(Detección de Posible Caída o Pedido de Ayuda)</em> y manifestó que no requiere de ayuda</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge d">Opción D</span>
+              <span class="wpp-manual-when">EVS — Cuando la Red no respondió los llamados telefónicos</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block evs">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Hemos tomado contacto con el afiliado: <em>(nombre_usuario)</em> por un posible evento del tipo: <em>(Detección de Posible Caída o Pedido de Ayuda)</em> y manifestó que requiere ayuda profesional la que gestionaremos a la brevedad.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge e">Opción E</span>
+              <span class="wpp-manual-when">EVS — Cuando se confirma que la asistencia médica está en camino</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block evs">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Informamos que hemos gestionado la ayuda profesional para el afiliado: <em>(nombre_usuario)</em> por un posible evento del tipo: <em>(Detección de Posible Caída o Pedido de Ayuda)</em>. La asistencia se encuentra en camino. En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1</div>
+              </div>
+              <p class="wpp-manual-note">⚠️ Enviar solo cuando se tiene acreditado por algún medio que la asistencia realmente está en camino. Finalidad: tranquilizar a los demás miembros de la Red.</p>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge f">Opción F</span>
+              <span class="wpp-manual-when">EVS — Cuando se confirma que el afiliado recibió asistencia de la Red o familiar</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block evs">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Hemos confirmado que el afiliado <em>(nombre_usuario)</em> recibió asistencia por un posible evento del tipo: <em>(Detección de Posible Caída o Pedido de Ayuda)</em></div>
+              </div>
+              <p class="wpp-manual-note">⚠️ Solo enviar si se tiene acreditada la veracidad. Si no está seguro, es preferible no enviarlo.</p>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge g">Opción G</span>
+              <span class="wpp-manual-when">EVS — Cuando se confirma que el afiliado recibió asistencia profesional (ambulancia)</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block evs">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Informamos el afiliado: <em>(nombre_usuario)</em> ha recibido asistencia profesional por un posible evento del tipo: <em>(Detección de Posible Caída o Pedido de Ayuda)</em>. En caso de ver este mensaje puede comunicarse al 0800 888 3554 Opción 1</div>
+              </div>
+              <p class="wpp-manual-note">⚠️ Queda a criterio del agente o supervisor. Riesgo: si la asistencia llegó pero no tuvo éxito, el mensaje podría ser inoportuno para los familiares. Solo enviar si se tiene certeza del resultado.</p>
+            </div>
+          </div>
+
+          <div class="wpp-manual-card">
+            <div class="wpp-manual-head">
+              <span class="wpp-opt-badge h">Opción H</span>
+              <span class="wpp-manual-when">EVS — Solo cuando se confirma que necesita ambulancia pero no se pudo contactar el servicio médico</span>
+            </div>
+            <div class="wpp-manual-body">
+              <div class="speech-block evs" style="border-color:var(--br-warn)">
+                <div class="speech-top"><span class="speech-mic">💬</span><span class="speech-lbl">Texto del mensaje</span></div>
+                <div class="speech-txt">Hemos recibido en nuestra plataforma una solicitud de ayuda del afiliado <em>(nombre_usuario)</em> del tipo: <em>(Detección de Posible Caída o Pedido de Ayuda)</em> y no pudimos comunicarnos con su servicio de emergencias médicas. En caso de ver este mensaje por favor comuníquese al 0800 888 3554 Opción 1</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Grabaciones ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-grabaciones"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num">4</span>
+          <h2>Grabaciones telefónicas</h2>
+        </div>
+        <p class="manual-p">Textos que escucha el afiliado automáticamente al comunicarse con el Ellie Center:</p>
+
+        <div class="grabacion-card">
+          <div class="grabacion-head">🔊 Al contactarse con el Ellie Center</div>
+          <div class="grabacion-txt">Ud. Está comunicado a través de su reloj con Ellie Care, su empresa de teleasistencia. Aguarde un instante y será atendido por uno de nuestros colaboradores para ofrecerle ayuda.</div>
+        </div>
+
+        <div class="grabacion-card">
+          <div class="grabacion-head">🔊 Al quedar el llamado en espera</div>
+          <div class="grabacion-txt">Ud. está comunicado a través de su reloj con Ellie Care, su plataforma de teleasistencia. Su llamado está en espera. En instantes retomará la conversación con uno de nuestros colaboradores.</div>
+        </div>
+      </div>
+
+      <!-- ── Notas aclaratorias ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-notas"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num">5</span>
+          <h2>Notas aclaratorias</h2>
+        </div>
+        <div class="nota-list">
+
+          <div class="nota-item">
+            <span class="nota-icon">🔁</span>
+            <div><strong>Callback transitorio:</strong> al recibir una alerta, la plataforma realiza automáticamente una llamada saliente (callback). El agente puede no notar la diferencia, pero en lugar de atender directamente una llamada entrante está respondiendo una saliente. Esto cambiará próximamente.</div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">📞</span>
+            <div><strong>Error "no corresponde a un abonado en servicio":</strong> en llamadas salientes desde AWS a ciertos celulares, usar <strong>Conexiones Rápidas</strong> y agregar el <strong>"9"</strong> al número.<br>Ejemplo: <code style="font-family:var(--mono);font-size:0.88rem">+54 9 11630565571</code></div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">🔄</span>
+            <div><strong>Detecciones de posible caída repetidas:</strong> si un mismo afiliado envía múltiples alertas seguidas (ej. haciendo gimnasia o lijando), <strong>llamarle solo una vez dentro de los 120 minutos siguientes</strong>. Decirle que si necesita ayuda presione el Botón de Ayuda para evitar molestarlo. El exceso de llamados puede cansar a los adultos mayores.</div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">🔴</span>
+            <div><strong>Pedidos de Ayuda — siempre responder:</strong> los Pedidos de Ayuda se responden <strong>siempre y a toda hora</strong>, sin excepción, aunque sean de personas conocidas o personal de Ellie Care. Incluso si se reciben 2 pedidos seguidos dentro de los mismos 5 minutos.</div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">📱</span>
+            <div><strong>Casos desde números desconocidos:</strong> un llamado puede ingresar de un número no incluido en la base de datos (ej. familiar que llama desde su propio dispositivo). Atenderlo y crear el caso manualmente: en "Customer Profile" → clic en <strong>"+ Caso de Connect"</strong> → asignar título → Guardar. Verificar que se trata de un familiar o miembro de la Red de Ayuda.</div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">✅</span>
+            <div><strong>Verificar que la plataforma funciona:</strong> si no ingresa ningún llamado durante 2 horas, hacer un llamado de prueba al <strong>0800 888 3554 Opción 1</strong> para confirmar que el sistema está activo.</div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">🎭</span>
+            <div><strong>Demos y pruebas técnicas:</strong> directivos o personal comercial pueden realizar Pedidos de Ayuda para demostrar el sistema a clientes. Aunque se sepa que es una prueba, <strong>respetar el protocolo completo</strong>. También pueden realizarse pruebas desde Argentina o el exterior; en esos casos se intenta avisar al call center previamente.</div>
+          </div>
+
+          <div class="nota-item">
+            <span class="nota-icon">💬</span>
+            <div><strong>Comentarios en el caso:</strong> puede agregarse cualquier indicación del afiliado sobre el origen de un disparo accidental (ej. "estaba martillando", "estaba en el teatro aplaudiendo") o sobre el funcionamiento del reloj. Estos comentarios no son exportables pero permiten mejorar la calidad del servicio.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Contactos ── -->
+      <div class="manual-section fade-up">
+        <span class="section-anchor" id="sec-contactos"></span>
+        <div class="manual-section-head">
+          <span class="manual-section-num">Ref</span>
+          <h2>Contactos de referencia</h2>
+        </div>
+        <div class="contactos-grid">
+          <div class="contacto-card">
+            <div class="contacto-label">Call Center</div>
+            <div class="contacto-value">0800 888 3554 · Opción 1</div>
+            <div class="contacto-desc">Atención de eventos 24/7</div>
+          </div>
+          <div class="contacto-card">
+            <div class="contacto-label">Soporte Técnico</div>
+            <div class="contacto-value">0800 888 3554 · Opción 3</div>
+            <div class="contacto-desc">L-V 9 a 18 · Sáb 9 a 14</div>
+          </div>
+          <div class="contacto-card">
+            <div class="contacto-label">Comercial</div>
+            <div class="contacto-value">0800 888 3554 · Opción 2</div>
+            <div class="contacto-desc">Consultas comerciales</div>
+          </div>
+          <div class="contacto-card">
+            <div class="contacto-label">BOT WhatsApp</div>
+            <div class="contacto-value">+54 911 6996 3554</div>
+            <div class="contacto-desc">Consultas automatizadas</div>
+          </div>
+          <div class="contacto-card">
+            <div class="contacto-label">Soporte técnico — mail</div>
+            <div class="contacto-value">pablo.buratti@ellie.care</div>
+            <div class="contacto-desc">Reclamos de miembros de la Red</div>
+          </div>
+          <div class="contacto-card">
+            <div class="contacto-label">Web</div>
+            <div class="contacto-value">ellie.care</div>
+            <div class="contacto-desc">Información general y soporte</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /manual-content -->
+  </div><!-- /manual-layout -->
+
+</main>
+
+<script src="scripts/app.js"></script>
+</body>
+</html>
