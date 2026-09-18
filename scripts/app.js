@@ -138,20 +138,28 @@ document.addEventListener('keydown', e => {
 
 /* ── Modales de eventos ── */
 function openModal(id) {
+  const scrollY = window.scrollY;
   document.getElementById('modal-' + id).classList.add('open');
   document.body.style.overflow = 'hidden';
+  window.scrollTo(0, scrollY);
 }
 function closeModal(id) {
+  const scrollY = window.scrollY;
   document.getElementById('modal-' + id).classList.remove('open');
   document.body.style.overflow = '';
+  window.scrollTo(0, scrollY);
 }
 
 /* ── Modal Assist Fe ── */
 function openAfModal() {
+  const scrollY = window.scrollY;
   document.getElementById('af-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  window.scrollTo(0, scrollY);
 }
 function closeAfModal() {
+  const scrollY = window.scrollY;
   document.getElementById('af-modal').classList.remove('open');
   document.body.style.overflow = '';
+  window.scrollTo(0, scrollY);
 }

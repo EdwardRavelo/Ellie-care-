@@ -420,7 +420,69 @@
       .contactos-grid { grid-template-columns: 1fr; }
       .def-row { grid-template-columns: 1fr; gap: 4px; }
     }
+
+    /* ── Modo oscuro ── */
+    [data-theme="dark"] {
+      --bg:        #0f172a;
+      --surface:   #1e293b;
+      --surface-2: #263347;
+      --surface-3: #334155;
+      --border:    rgba(255,255,255,0.07);
+      --border-md: rgba(255,255,255,0.13);
+      --t1: #f1f5f9;
+      --t2: #cbd5e1;
+      --t3: #64748b;
+      --speech-bg:  #162032;
+      --header-bg:  rgba(15,23,42,0.96);
+      --shadow:     0 2px 20px rgba(0,0,0,0.5);
+      --logo-filter: invert(1) brightness(1.9);
+      --bg-general: rgba(29,108,212,0.18);
+      --bg-ef:  rgba(22,163,74,0.18);
+      --bg-evn: rgba(124,58,237,0.18);
+      --bg-evs: rgba(220,38,38,0.18);
+      --bg-warn: rgba(180,83,9,0.18);
+      --bg-nd:  rgba(234,88,12,0.18);
+      --bg-af:  rgba(14,116,144,0.18);
+    }
+    [data-theme="dark"] .manual-hero {
+      background: linear-gradient(180deg, rgba(29,108,212,0.09) 0%, transparent 240px);
+    }
+    [data-theme="dark"] .logo-voccare {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Transición suave al cambiar tema */
+    body, .site-header, .manual-toc, .step-card,
+    .speech-block, .wpp-manual-card, .nota-item,
+    .contacto-card, .grabacion-card, .def-row {
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* ── Botón toggle ── */
+    .theme-toggle {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border-md);
+      background: var(--surface-2);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-toggle:hover { background: var(--surface-3); }
   </style>
+
+  <!-- Tema: aplicar antes de pintar para evitar flash -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem('manual-theme') || 'light';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
 </head>
 <body>
 
@@ -438,7 +500,7 @@
   <div class="header-inner">
 
     <div class="header-logos">
-      <img src="https://ellie.care/wp-content/uploads/2025/11/Ellie-Care-Logo-Negro-EC-1.png"
+      <img src="ellie_logo.webp"
            class="logo-elliecare" alt="Ellie Care">
       <div class="logos-divider"></div>
       <img src="https://voccare.global/wp-content/uploads/2020/10/Logo-center-home.png"
@@ -954,5 +1016,25 @@
 </main>
 
 <script src="scripts/app.js"></script>
+<script>
+  (function() {
+    var html = document.documentElement;
+    var toggle = document.getElementById('theme-toggle');
+    var icon   = document.getElementById('theme-icon');
+
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('manual-theme', theme);
+    }
+
+    // Ícono inicial
+    applyTheme(localStorage.getItem('manual-theme') || 'light');
+
+    toggle.addEventListener('click', function() {
+      applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  })();
+</script>
 </body>
 </html>

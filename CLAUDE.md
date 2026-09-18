@@ -30,9 +30,10 @@ All protocol content is **inline in `index.html`** — there is no separate data
 
 - **`index.html`** — all protocol steps, speeches, rules, and UI structure. This is the single source of truth for content.
 - **`styles/main.css`** — CSS custom properties (light mode only), all component styles, responsive breakpoints.
-- **`scripts/app.js`** — scroll fade-in via IntersectionObserver, clipboard copy with fallback, 20-min EVN timer, lightbox, and dynamic wrapping of `.thumb-row` elements with a "Referencia visual" header.
+- **`scripts/app.js`** — scroll fade-in via IntersectionObserver, clipboard copy with fallback, 20-min EVN timer, lightbox, event-type modals (`openModal`/`closeModal` for ef/evn/evs/nd), Assist Fe modal (`openAfModal`/`closeAfModal`), and dynamic wrapping of `.thumb-row` elements with a "Referencia visual" header.
 - **`manual.html`** — full manual view; shares `styles/main.css` and follows the same design system.
 - **`discrepancias.html`** — standalone discrepancy report (print-oriented); uses its own inline styles, not `main.css`.
+- **`sandbox/`** — parallel development environment mirroring the root structure (`index.html`, `scripts/app.js`, `styles/main.css`, `imagenes/`). Use it for experimenting before promoting changes to root files.
 
 ## Page layout
 

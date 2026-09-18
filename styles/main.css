@@ -255,7 +255,7 @@ strong { font-weight: 700; }
   border: 1px solid var(--br-general);
 }
 .eyebrow-sub {
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   color: var(--t3);
 }
 
@@ -319,7 +319,7 @@ strong { font-weight: 700; }
 .step-badge.nd      { background: var(--bg-nd);       color: var(--c-nd);      border: 1px solid var(--br-nd); }
 
 .step-head h3 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--t1);
   letter-spacing: -0.01em;
@@ -355,7 +355,7 @@ strong { font-weight: 700; }
   display: flex;
   gap: 11px;
   align-items: flex-start;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--t2);
   line-height: 1.7;
 }
@@ -366,7 +366,7 @@ strong { font-weight: 700; }
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--t2);
   line-height: 1.65;
 }
@@ -376,7 +376,7 @@ strong { font-weight: 700; }
   display: flex;
   flex-direction: column;
   gap: 5px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--t2);
   margin-top: 5px;
   line-height: 1.65;
@@ -390,7 +390,7 @@ strong { font-weight: 700; }
   border: 1px solid var(--br-warn);
   border-radius: var(--r-sm);
   padding: 12px 15px;
-  font-size: 0.93rem;
+  font-size: 0.9rem;
   color: var(--t2);
   line-height: 1.65;
 }
@@ -1350,16 +1350,19 @@ strong { font-weight: 700; }
   font-family: var(--font);
   text-align: left;
   box-shadow: var(--shadow);
-  transition: transform 0.18s, box-shadow 0.18s;
+  transition: transform 0.14s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.14s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.launcher-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.13); }
 .launcher-card.ef  { border-color: var(--br-ef);  border-top: 3px solid var(--c-ef);  background: linear-gradient(150deg, var(--bg-ef)  0%, var(--surface) 70%); }
 .launcher-card.evn { border-color: var(--br-evn); border-top: 3px solid var(--c-evn); background: linear-gradient(150deg, var(--bg-evn) 0%, var(--surface) 70%); }
 .launcher-card.evs { border-color: var(--br-evs); border-top: 3px solid var(--c-evs); background: linear-gradient(150deg, var(--bg-evs) 0%, var(--surface) 70%); }
 .launcher-card.nd  { border-color: var(--br-nd);  border-top: 3px solid var(--c-nd);  background: linear-gradient(150deg, var(--bg-nd)  0%, var(--surface) 70%); }
+.launcher-card.ef:hover  { transform: translateY(-7px) scale(1.015); box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 8px 40px 8px rgba(22,163,74,0.18); }
+.launcher-card.evn:hover { transform: translateY(-7px) scale(1.015); box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 8px 40px 8px rgba(124,58,237,0.18); }
+.launcher-card.evs:hover { transform: translateY(-7px) scale(1.015); box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 8px 40px 8px rgba(220,38,38,0.18); }
+.launcher-card.nd:hover  { transform: translateY(-7px) scale(1.015); box-shadow: 0 16px 40px rgba(0,0,0,0.12), 0 8px 40px 8px rgba(234,88,12,0.18); }
 .launcher-card-top { display: flex; align-items: flex-start; gap: 14px; }
 .launcher-card-top h3 { font-size: 0.95rem; font-weight: 800; color: var(--t1); line-height: 1.3; }
-.launcher-card-top p  { font-size: 0.82rem; color: var(--t3); margin-top: 4px; line-height: 1.5; }
+.launcher-card-top p  { font-size: 0.9rem; color: var(--t3); margin-top: 4px; line-height: 1.5; }
 .launcher-cta { font-size: 0.76rem; font-weight: 700; align-self: flex-end; margin-top: auto; }
 .launcher-card.ef  .launcher-cta { color: var(--c-ef); }
 .launcher-card.evn .launcher-cta { color: var(--c-evn); }
@@ -1413,7 +1416,7 @@ strong { font-weight: 700; }
 }
 .event-modal-title { display: flex; align-items: center; gap: 14px; }
 .event-modal-title h2 { font-size: 1rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
-.event-modal-title p  { font-size: 0.82rem; color: var(--t3); margin-top: 3px; line-height: 1.4; }
+.event-modal-title p  { font-size: 0.9rem; color: var(--t3); margin-top: 3px; line-height: 1.4; }
 .event-modal-close {
   width: 34px; height: 34px;
   border-radius: 8px;
@@ -1441,7 +1444,7 @@ strong { font-weight: 700; }
 #modal-nd .nd-step-card .action-ul { font-size: 0.78rem; }
 #modal-nd .nd-step-num            { font-size: 0.6rem; }
 #modal-nd .nd-step-card           { padding: 13px 12px; gap: 7px; }
-#modal-nd .fork-path              { font-size: 0.82rem; padding: 9px 12px; }
+#modal-nd .fork-path              { font-size: 0.9rem; padding: 9px 12px; }
 #modal-nd .fork-badge             { font-size: 0.68rem; }
 #modal-nd .nd-nocturno-head       { padding: 10px 16px; }
 #modal-nd .nd-nocturno-body       { padding: 11px 16px; gap: 7px; }
