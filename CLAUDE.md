@@ -31,7 +31,7 @@ All protocol content is **inline in `index.html`** — there is no separate data
 - **`index.html`** — all protocol steps, speeches, rules, and UI structure. This is the single source of truth for content.
 - **`styles/main.css`** — CSS custom properties (light mode only), all component styles, responsive breakpoints.
 - **`scripts/app.js`** — scroll fade-in via IntersectionObserver, clipboard copy with fallback, 20-min EVN timer, lightbox, event-type modals (`openModal`/`closeModal` for ef/evn/evs/nd), Assist Fe modal (`openAfModal`/`closeAfModal`), and dynamic wrapping of `.thumb-row` elements with a "Referencia visual" header.
-- **`manual.html`** — full manual view; shares `styles/main.css` and follows the same design system.
+- **`manual.html`** — full manual view; shares `styles/main.css` but adds its own dark mode via `[data-theme="dark"]` inline styles, a `.theme-toggle` button, and `localStorage.setItem('manual-theme', ...)`. Dark mode only applies here, not to `index.html`.
 - **`discrepancias.html`** — standalone discrepancy report (print-oriented); uses its own inline styles, not `main.css`.
 - **`sandbox/`** — parallel development environment mirroring the root structure (`index.html`, `scripts/app.js`, `styles/main.css`, `imagenes/`). Use it for experimenting before promoting changes to root files.
 
@@ -56,16 +56,55 @@ The page has four vertical sections in order:
 | EVN | violet | `--c-evn`, `--bg-evn`, `--br-evn` |
 | EVS | red | `--c-evs`, `--bg-evs`, `--br-evs` |
 | Sin Contacto | orange | `--c-nd`, `--bg-nd`, `--br-nd` |
+| Assist Fe | teal | `--c-af`, `--bg-af`, `--br-af` |
 
-Never use inline styles for theme colors — always use the CSS vars. Only one theme (light) is defined in `:root`; there is no dark mode and no `[data-theme]` variant.
+Never use inline styles for theme colors — always use the CSS vars. `main.css` defines light mode only (`:root`). Dark mode exists only in `manual.html` as inline `[data-theme="dark"]` overrides — do not add dark mode to `index.html`.
 
 ## Design constraints
 
 - **Fonts:** `Inter` for UI, `JetBrains Mono` for speech blocks (loaded from Google Fonts).
 - Speech blocks: distinct background (`--speech-bg`), monospace font, labeled with 🎙️.
 - Icons: 🎙️ speech · ⚠️ rule · 📋 operative action.
-- **Light mode only** — no dark mode, no theme toggle, no localStorage theme key.
+- **`index.html` is light mode only** — no dark mode, no theme toggle. `manual.html` has its own dark mode independent of `main.css`.
 - Responsive: primary target is desktop/tablet. `.branches` collapses to 2 cols at ≤1100px, 1 col at ≤800px.
+
+## HTML component conventions
+
+All JS functions are **global scope** (no ES modules). `scripts/app.js` is loaded at end of `<body>` via `<script src>`.
+
+**Speech block** (copyable text):
+```html
+<div class="speech-block {type}">
+  <div class="speech-top">
+    <span class="speech-mic">🎙️</span>
+    <span class="speech-lbl">Speech</span>
+    <button class="copy-btn" data-text="exact text to copy">Copiar</button>
+  </div>
+  <p class="speech-txt">"Displayed text…"</p>
+</div>
+```
+
+**Step card** inside a modal:
+```html
+<div class="step-card" data-color="{ef|evn|evs|nd}">
+  <div class="step-head">
+    <div class="step-badge {type}">{TYPE}-{N}</div>
+    <h3>Title</h3>
+  </div>
+  <div class="step-body">…</div>
+</div>
+<div class="v-connector {type}-line"></div>
+```
+
+**Screenshots** use `.thumb-row > figure.thumb[onclick="openLightbox(src, caption)"]`. `app.js` wraps `.thumb-row` in `.sc-container` with a header at runtime — don't add that wrapper manually.
+
+**Modal IDs:** `modal-ef`, `modal-evn`, `modal-evs`, `modal-nd`, `af-modal`. Opened/closed via `openModal('ef')` / `closeModal('ef')` (and `openAfModal()` / `closeAfModal()`). ESC key closes all.
+
+## Misc
+
+`node_modules/` (pdf-parse, adm-zip, pdfjs-dist) are dev-only scripts for PDF extraction. They are not part of the deployed app and not referenced by any HTML file.
+
+Google Analytics (`G-FTWCCPX6PF`) is in `index.html` only.
 
 ## Protocol summary
 

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FTWCCPX6PF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FTWCCPX6PF');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Protocolo de Atención — Ellie Care</title>
@@ -170,7 +178,7 @@
     </div>
     <div class="event-modal-body">
       <button class="af-trigger" onclick="openAfModal()">
-        <span class="af-flag">🇵🇪</span>
+        <img src="https://flagcdn.com/pe.svg" alt="Perú" class="af-flag">
         <div class="af-trigger-text"><span class="af-label">Sub-protocolo</span><span class="af-trigger-title">Afiliado/a de <strong>Assist Fe Perú</strong></span></div>
         <span class="af-trigger-arrow">Ver protocolo →</span>
       </button>
@@ -254,18 +262,17 @@
     </div>
     <div class="event-modal-body">
       <div class="nd-steps-grid">
-        <div class="nd-step-card"><div class="nd-step-num">ND-1</div><h4>Intentos al afiliado</h4><ul class="action-ul"><li>Hasta <strong>6 intentos</strong> de llamado</li><li><strong>2 llamadas</strong> por número de contacto</li><li>Intervalo de <strong>1 minuto</strong> entre intentos</li></ul></div>
+        <div class="nd-step-card"><div class="nd-step-num">1</div><h4>Intentos al afiliado</h4><ul class="action-ul"><li>Hasta <strong>6 intentos</strong> de llamado</li><li><strong>2 llamadas</strong> por número de contacto</li><li>Intervalo de <strong>1 minuto</strong> entre intentos</li></ul></div>
         <div class="nd-arrow">→</div>
-        <div class="nd-step-card"><div class="nd-step-num">ND-2</div><h4>Contactar Red de Ayuda</h4><ul class="action-ul"><li>Hasta <strong>5 acompañantes</strong></li><li><strong>2 llamadas</strong> a cada uno</li><li>Intervalo de <strong>2 minutos</strong> entre intentos</li></ul></div>
+        <div class="nd-step-card"><div class="nd-step-num">2</div><h4>Contactar Red de Ayuda</h4><ul class="action-ul"><li>Hasta <strong>5 acompañantes</strong></li><li><strong>2 llamadas</strong> a cada uno</li><li>Intervalo de <strong>2 minutos</strong> entre intentos</li></ul></div>
         <div class="nd-arrow">→</div>
-        <div class="nd-step-card"><div class="nd-step-num">ND-3</div><h4>Registrar y dejar Abierto</h4><ul class="action-ul"><li>Evento queda en estado <strong>ABIERTO</strong></li><li>Constancia de falta de comunicación en bitácora</li><li>Enviar WPP <strong>Opción A</strong> a toda la red</li></ul></div>
+        <div class="nd-step-card"><div class="nd-step-num">3</div><h4>Registrar y dejar Abierto</h4><ul class="action-ul"><li>Evento queda en estado <strong>ABIERTO</strong></li><li>Constancia de falta de comunicación en bitácora</li><li>Enviar WPP <strong>Opción A</strong> a toda la red</li></ul></div>
         <div class="nd-arrow">→</div>
-        <div class="nd-step-card"><div class="nd-step-num">ND-4</div><h4>Reintento tras 1 hora</h4><ul class="action-ul"><li>Repetir <strong>todo el procedimiento</strong> desde ND-1</li><li>Llamados al afiliado y a su Red de Ayuda</li></ul></div>
+        <div class="nd-step-card"><div class="nd-step-num">4</div><h4>Reintento tras 1 hora</h4><ul class="action-ul"><li>Repetir <strong>todo el procedimiento</strong> desde el Paso 1</li><li>Llamados al afiliado y a su Red de Ayuda</li></ul></div>
       </div>
       <div class="nd-nocturno-card">
         <div class="nd-nocturno-head">
           <span class="time-chip nd-chip" style="font-size:0.8rem;padding:4px 12px;">🌙 Turno nocturno — 22:00 a 08:00</span>
-          <span class="nd-step-num" style="margin-left:auto">ND-5</span>
         </div>
         <div class="nd-nocturno-body">
           <div class="fork-path fork-nd-a"><span class="fork-badge nd-a">Detección de Posible Caída</span><span>Se atiende el llamado del afiliado, pero <strong>no es necesario realizar llamados activos</strong> por parte del agente durante el turno nocturno.</span></div>
@@ -281,7 +288,7 @@
   <div class="af-modal-inner">
     <div class="af-modal-header">
       <div class="af-modal-title">
-        <span class="af-flag">🇵🇪</span>
+        <img src="https://flagcdn.com/pe.svg" alt="Perú" class="af-flag">
         <div>
           <span class="af-label">Sub-protocolo EVS</span>
           <h2>Assist Fe Perú</h2>
@@ -291,8 +298,24 @@
     </div>
     <div class="af-body">
 
-      <div class="af-alert">
-        ⚠️ Presentarse como agente de <strong>Assist Fe</strong>, no de Ellie Care. El IVR y el perfil del cliente confirman que es Assist Fe Perú.
+      <div class="af-phase-card">
+        <div class="af-phase-head">
+          <span class="af-phase-num">F1</span>
+          <h4>Recepción e identificación</h4>
+        </div>
+        <div class="af-phase-body">
+          <div class="action-row">
+            <span class="bi">📋</span>
+            <div>
+              <p><strong>Ingreso:</strong> La llamada ingresa por la plataforma de Ellie Care.</p>
+              <p style="margin-top:4px"><strong>Identificación:</strong> El perfil del cliente y el IVR confirmarán que es un afiliado/a de <strong>Assist Fe Perú</strong>.</p>
+            </div>
+          </div>
+          <div class="rule-row">
+            <span class="bi">⚠️</span>
+            <p><strong>Presentación obligatoria:</strong> Presentarse ante el AM como agente de <strong>Assist Fe</strong>, nunca como agente de Ellie Care.</p>
+          </div>
+        </div>
       </div>
 
       <div class="af-phase-card">
@@ -332,7 +355,7 @@
           <div class="action-row">
             <span class="bi">📋</span>
             <div>
-              <p>Llamar al <span class="af-phone">+51 1 644 1934</span> — atendido por otro/a coordinador/a Voccare.</p>
+              <p>Llamar al <img src="https://flagcdn.com/w20/pe.png" alt="PE" style="width:16px;height:auto;vertical-align:middle;border-radius:2px;margin-right:2px"> <span class="af-phone">+51 1 644 1934</span> — atendido por otro/a coordinador/a Voccare.</p>
               <p style="margin-top:4px">⚠️ <strong>Mantener tono profesional y sentido de urgencia.</strong></p>
             </div>
           </div>
@@ -362,7 +385,7 @@
         <div class="af-phase-body">
           <ul class="action-ul">
             <li>Volver con el AM, informar el ETA y ofrecer quedarse en línea o llamar cada 10/15 min.</li>
-            <li>Para actualizaciones del estado → llamar de nuevo al <span class="af-phone">+51 1 644 1934</span>.</li>
+            <li>Para actualizaciones del estado → llamar de nuevo al <img src="https://flagcdn.com/w20/pe.png" alt="PE" style="width:16px;height:auto;vertical-align:middle;border-radius:2px;margin-right:2px"> <span class="af-phone">+51 1 644 1934</span>.</li>
             <li>Asignación de asistencia es responsabilidad <strong>exclusiva de cabina Perú</strong> — nuestro rol es de seguimiento.</li>
           </ul>
         </div>
@@ -403,7 +426,7 @@
       <a href="#" class="enav-pill ef"  onclick="event.preventDefault();openModal('ef')">🟢 EF</a>
       <a href="#" class="enav-pill evn" onclick="event.preventDefault();openModal('evn')">🟣 EVN</a>
       <a href="#" class="enav-pill evs" onclick="event.preventDefault();openModal('evs')">🔴 EVS</a>
-      <a href="#" class="enav-pill evs af-pill" onclick="event.preventDefault();openAfModal()">🇵🇪 Assist Fe</a>
+      <a href="#" class="enav-pill evs af-pill" onclick="event.preventDefault();openAfModal()"><img src="https://flagcdn.com/w20/pe.png" alt="PE" style="width:14px;height:auto;vertical-align:middle;border-radius:2px;margin-right:3px"> Assist Fe</a>
       <a href="#" class="enav-pill nd"  onclick="event.preventDefault();openModal('nd')">🟠 Sin contacto</a>
     </nav>
 
@@ -604,6 +627,21 @@
         <div class="wpp-option-tag nd-opt">A · Aviso de imposibilidad de contacto</div>
       </div>
 
+    </div>
+  </section>
+
+  <section class="video-section">
+    <div class="video-section-head fade-up">
+      <div class="wpp-icon-wrap">▶️</div>
+      <div>
+        <h2>Demo — Guía en acción</h2>
+        <p>Ejemplo de uso de la guía durante una atención</p>
+      </div>
+    </div>
+    <div class="video-wrap fade-up">
+      <video controls preload="metadata">
+        <source src="WhatsApp%20Video%202026-10-14%20at%2011.51.54.mp4" type="video/mp4">
+      </video>
     </div>
   </section>
 
